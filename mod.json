@@ -67,7 +67,7 @@
 		"visibilityInPlayLayerZDATL": {
 			"name": "Visibility When Playing Levels",
 			"type": "string",
-			"default": "Only Show When Dead",
+			"default": "Always Visible",
 			"one-of": [
 				"Only Show When Dead",
 				"Always Visible",
@@ -78,18 +78,18 @@
 		"hideInLevelEditorLayerZDATL": {
 			"name": "Hide When Editing Levels",
 			"type": "bool",
-			"default": true
+			"default": false
 		},
 		"hideEverywhereElseZDATL": {
 			"name": "Hide Outside Of Levels",
 			"description": "Hides the date/time label outside of levels.",
 			"type": "bool",
-			"default": true
+			"default": false
 		},
 		"textAlignZDATL": {
 			"name": "Text Alignment",
 			"type": "string",
-			"default": "Left",
+			"default": "Center",
 			"one-of": [
 				"Left",
 				"Center",
