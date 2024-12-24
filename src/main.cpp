@@ -44,6 +44,7 @@ $on_mod(Loaded) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());
 		if (!zdatl) return;
 		if (blending && Utils::getInt("font") == -2) return zdatl->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
+		return zdatl->setBlendFunc({});
 	});
 	listenForSettingChanges<cocos2d::ccColor4B>("color", [](cocos2d::ccColor4B color) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());
