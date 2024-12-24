@@ -18,6 +18,17 @@
 			"type": "bool",
 			"default": true
 		},
+		"dayOfWeek": {
+			"name": "Day of Week (Sun, Mon, Etc)",
+			"type": "bool",
+			"default": true
+		},
+		"shortDayOfWeek": {
+			"name": "Abbreviated Day of Week",
+			"description": "Truncates the day of the week to its first three characters.\n\n(Example: <cl>Sunday</c> -> <cl>Sun</c>)",
+			"type": "bool",
+			"default": true
+		},
 		"dayFirst": {
 			"name": "Day First",
 			"description": "Displays the day before the month.",
@@ -26,7 +37,7 @@
 		},
 		"shortMonth": {
 			"name": "Abbreviated Month Name",
-			"description": "Truncates the month name to its first three characters.\n\n(Example: <cl>December</c> -> <cl>Dec.</c>)",
+			"description": "Truncates the month name to its first three characters.\n\n(Example: <cl>December</c> -> <cl>Dec</c>)",
 			"type": "bool",
 			"default": true
 		},
@@ -93,7 +104,7 @@
 		"xPositionZDATL": {
 			"name": "X Position (%)",
 			"type": "float",
-			"default": 5.0,
+			"default": 50.0,
 			"min": -100.0,
 			"max": 100.0,
 			"control": {
@@ -109,7 +120,7 @@
 		"yPositionZDATL": {
 			"name": "Y Position (%)",
 			"type": "float",
-			"default": 5.0,
+			"default": 2.50,
 			"min": -100.0,
 			"max": 100.0,
 			"control": {

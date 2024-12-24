@@ -31,9 +31,10 @@ namespace Utils {
 
 	std::string getCurrentTime() {
 		if (!Utils::modEnabled()) return "";
+		Manager* manager = Manager::getSharedInstance();
 		std::time_t tinnyTim = std::time(nullptr);
 		std::tm* now = std::localtime(&tinnyTim);
-		std::string month = Manager::getSharedInstance()->months[now->tm_mon + 1];
+		std::string month = manager->months[now->tm_mon + 1];
 		int hour = now->tm_hour;
 		std::string ampm = "";
 		if (Utils::getBool("twelveHour")) {
@@ -46,8 +47,10 @@ namespace Utils {
 			}
 		}
 		if (Utils::getBool("shortMonth") && month != "May") {
-			month = fmt::format("{}.", month.substr(0, 3));
+			month = fmt::format("{}", month.substr(0, 3));
 		}
+		std::string dow = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : ""; // dow = day of week
+		std::string dayOfWeek = !Utils::getBool("dayOfWeek") ? "" : fmt::format("{}, ", !Utils::getBool("shortDayOfWeek") ? dow : dow.substr(0, 3));
 		std::string dateMonth = Utils::getBool("dayFirst") ?
 			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
@@ -57,9 +60,9 @@ namespace Utils {
 		#else
 		std::string timeZone = "";
 		#endif
-		return fmt::format("{}, {}{}{:02}:{:02}{}{}{}",
-			dateMonth, now->tm_year + 1900, separator,
-			hour, now->tm_min, seconds, ampm, timeZone.c_str()
+		return fmt::format("{}{}, {}{}{:02}:{:02}{}{}{}",
+			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
+			hour, now->tm_min, seconds, ampm, timeZone
 		);
 	}
 
