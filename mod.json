@@ -60,7 +60,7 @@
 		},
 		"blendingZDATL": {
 			"name": "Readable Mode (Stronger Blending)",
-			"description": "If using <cl>chatFont.fnt</c>, apply invert blending to make the date/time label easier to read against a wider variety of backgrounds.",
+			"description": "If the date/time label uses <cl>this font you're seeing right now</c>, apply invert blending to make the date/time label easier to read against a wider variety of backgrounds.",
 			"type": "bool",
 			"default": true
 		},
