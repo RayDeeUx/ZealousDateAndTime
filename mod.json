@@ -85,6 +85,11 @@
 				"Right"
 			]
 		},
+		"color": {
+			"name": "Color",
+			"type": "rgba",
+			"default": [255, 255, 255, 255]
+		},
 		"xPositionZDATL": {
 			"name": "X Position (%)",
 			"type": "float",

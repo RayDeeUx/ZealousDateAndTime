@@ -52,9 +52,14 @@ namespace Utils {
 			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
 		std::string separator = Utils::getBool("splitDateAndTime") ? "\n" : " ";
-		return fmt::format("{}, {}{}{:02}:{:02}{}{} {}",
+		#ifndef GEODE_IS_WINDOWS
+		const char* timeZone = fmt::format(" {}", now->tm_zone).c_str();
+		#else
+		const char* timeZone = "";
+		#endif
+		return fmt::format("{}, {}{}{:02}:{:02}{}{}{}",
 			dateMonth, now->tm_year + 1900, separator,
-			hour, now->tm_min, seconds, ampm, now->tm_zone
+			hour, now->tm_min, seconds, ampm, timeZone
 		);
 	}
 
@@ -136,6 +141,9 @@ namespace Utils {
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scaleZDATL"));
 		label->setRotation(Utils::getDouble("rotationZDATL"));
+		auto color = Utils::getColorAlpha("color");
+		label->setColor({color.r, color.g, color.b});
+		label->setOpacity(color.a);
 		if (Utils::getInt("font") == -2 && Utils::getBool("blendingZDATL"))
 			label->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
 		zdatl->addChild(label);
