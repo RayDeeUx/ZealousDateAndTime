@@ -20,7 +20,7 @@ namespace Utils {
 
 	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
 	cocos2d::CCNode* getZDATLLabel();
-	void handleZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
+	void handleZDATL();
 	void addZDATL();
 	void removeZDATL();
 	void setupZDATL(cocos2d::CCNode* zdatl);

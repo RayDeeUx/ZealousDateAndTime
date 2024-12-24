@@ -76,7 +76,7 @@ namespace Utils {
 		return getZDATL()->getChildByID("zealous-date-and-time-label"_spr);
 	}
 	
-	void handleZDATL(cocos2d::CCScene* scene) {
+	void handleZDATL() {
 		if (!Utils::modEnabled()) return removeZDATL();
 		const auto gjbgl = GJBaseGameLayer::get();
 		const auto lel = LevelEditorLayer::get();
