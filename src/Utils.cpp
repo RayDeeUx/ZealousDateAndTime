@@ -53,7 +53,7 @@ namespace Utils {
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
 		std::string separator = Utils::getBool("splitDateAndTime") ? "\n" : " ";
 		#ifndef GEODE_IS_WINDOWS
-		std::string timeZone = fmt::format(" {}", now->tm_zone).c_str();
+		std::string timeZone = fmt::format(" {}", now->tm_zone);
 		#else
 		std::string timeZone = "";
 		#endif
