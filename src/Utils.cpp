@@ -84,12 +84,11 @@ namespace Utils {
 		cocos2d::CCNode* zdatl = getZDATL();
 		if (zdatl && getBool("hideEverywhereElseZDATL") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayerZDATL") && lel) return removeZDATL();
-		if (!zdatl && getBool("visibilityInPlayLayerZDATL") && !lel) {
+		if (!zdatl && getBool("hideInLevelEditorLayerZDATL") && !lel) {
 			addZDATL();
 			zdatl = getZDATL();
 		}
-		if (!zdatl) return;
-		if (gjbgl) {
+		if (gjbgl && zdatl) {
 			if (pl) {
 				std::string playLayerVisibility = getString("visibilityInPlayLayerZDATL");
 				if (playLayerVisibility.starts_with("Always ")) {
@@ -112,7 +111,7 @@ namespace Utils {
 				if (getBool("hideInLevelEditorLayerZDATL")) removeZDATL();
 				else addZDATL();
 			}
-		} else {
+		} else if (zdatl) {
 			zdatl->setVisible(!getBool("hideEverywhereElseZDATL"));
 		}
 		if (auto label = getZDATLLabel()) static_cast<CCLabelBMFont*>(label)->setString(getCurrentTime().c_str());
