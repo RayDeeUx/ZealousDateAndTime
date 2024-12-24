@@ -1,8 +1,10 @@
 #include "ZealousDateAndTimeLabel.hpp"
+#include "Manager.hpp"
 #include "Utils.hpp"
 #include <ctime>
-
-#include "Manager.hpp"
+#ifdef GEODE_IS_WINDOWS
+#include <chrono>
+#endif
 
 using namespace geode::cocos;
 
@@ -56,11 +58,11 @@ namespace Utils {
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
 		std::string separator = Utils::getBool("splitDateAndTime") ? "\n" : " ";
 		#ifndef GEODE_IS_WINDOWS
-		std::string timeZone = fmt::format(" {}", now->tm_zone);
+		std::string timeZone = now->tm_zone;
 		#else
-		std::string timeZone = "";
+		std::string timeZone = std::chrono::current_zone()->get_info(std::chrono::system_clock::now()).abbrev;
 		#endif
-		return fmt::format("{}{}, {}{}{:02}:{:02}{}{}{}",
+		return fmt::format("{}{}, {}{}{:02}:{:02}{}{} {}",
 			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
 			hour, now->tm_min, seconds, ampm, timeZone
 		);
