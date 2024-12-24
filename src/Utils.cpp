@@ -118,11 +118,11 @@ namespace Utils {
 	}
 
 	void addZDATL() {
-		if (!Utils::modEnabled()) return log::info("mod disabled, addition aborted");
+		if (!Utils::modEnabled()) return;
 		auto zdatl = getZDATL();
 		if (zdatl) return zdatl->setVisible(true);
 		auto newLabel = ZealousDateAndTimeLabel::create();
-		if (!newLabel) return log::info("ZDATL addition operation failed, node was not found");
+		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
 		setupZDATL(newLabel);
 		CCScene::get()->addChild(newLabel);
 		SceneManager::get()->keepAcrossScenes(newLabel);
@@ -133,7 +133,7 @@ namespace Utils {
 	void removeZDATL() {
 		if (!Utils::modEnabled()) return log::info("mod disabled, removal aborted");
 		auto zdatl = getZDATL();
-		if (!zdatl) return log::info("ZDATL removal operation failed, node was not found");
+		if (!zdatl) return;
 		CCScene::get()->removeChildByID("zealous-date-and-time-container"_spr);
 		if (Utils::getBool("loggingZDATL")) log::info("ZDATL removed");
 	}
