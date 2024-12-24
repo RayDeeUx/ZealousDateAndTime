@@ -88,6 +88,7 @@ namespace Utils {
 			addZDATL();
 			zdatl = getZDATL();
 		}
+		if (!zdatl) return;
 		if (gjbgl) {
 			if (pl) {
 				std::string playLayerVisibility = getString("visibilityInPlayLayerZDATL");
@@ -111,10 +112,10 @@ namespace Utils {
 				if (getBool("hideInLevelEditorLayerZDATL")) removeZDATL();
 				else addZDATL();
 			}
-		} else if (zdatl) {
+		} else {
 			zdatl->setVisible(!getBool("hideEverywhereElseZDATL"));
 		}
-		if (zdatl) static_cast<CCLabelBMFont*>(zdatl->getChildByID("zealous-date-and-time-label"_spr))->setString(getCurrentTime().c_str());
+		if (auto label = getZDATLLabel()) static_cast<CCLabelBMFont*>(label)->setString(getCurrentTime().c_str());
 	}
 
 	void addZDATL() {
