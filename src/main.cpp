@@ -49,22 +49,13 @@ $on_mod(Loaded) {
 	listenForSettingChanges<cocos2d::ccColor4B>("color", [](cocos2d::ccColor4B color) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());
 		if (!zdatl) return;
-		if (color == ccColor4B{0,0,0,0}) {
-			zdatl->setOpacity(255);
-			CCFiniteTimeAction* tintOne = CCTintTo::create(1.f, 255, 128, 128);
-			CCFiniteTimeAction* tintTwo = CCTintTo::create(1.f, 255, 255, 128);
-			CCFiniteTimeAction* tintThree = CCTintTo::create(1.f, 128, 255, 128);
-			CCFiniteTimeAction* tintFour = CCTintTo::create(1.f, 128, 255, 255);
-			CCFiniteTimeAction* tintFive = CCTintTo::create(1.f, 128, 128, 255);
-			CCFiniteTimeAction* tintSix = CCTintTo::create(1.f, 255, 128, 255);
-			CCActionInterval* sequence = CCSequence::create(tintOne, tintTwo, tintThree, tintFour, tintFive, tintSix, nullptr);
-			CCAction* repeat = CCRepeatForever::create(sequence);
-			zdatl->runAction(repeat);
-			return;
+		if (color == ccColor4B{0, 0, 0, 0}) {
+			Utils::addChroma(zdatl);
+		} else {
+			zdatl->stopAllActions();
+			zdatl->setColor({color.r, color.g, color.b});
+			zdatl->setOpacity(color.a);
 		}
-		zdatl->stopAllActions();
-		zdatl->setColor({color.r, color.g, color.b});
-		zdatl->setOpacity(color.a);
 	});
 	listenForSettingChanges<std::string>("textAlignZDATL", [](std::string alignment) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());

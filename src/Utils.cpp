@@ -147,8 +147,12 @@ namespace Utils {
 		label->setScale(Utils::getDouble("scaleZDATL"));
 		label->setRotation(Utils::getDouble("rotationZDATL"));
 		auto color = Utils::getColorAlpha("color");
-		label->setColor({color.r, color.g, color.b});
-		label->setOpacity(color.a);
+		if (color == ccColor4B{0, 0, 0, 0}) {
+			Utils::addChroma(label);
+		} else {
+			label->setColor({color.r, color.g, color.b});
+			label->setOpacity(color.a);
+		}
 		if (Utils::getInt("font") == -2 && Utils::getBool("blendingZDATL"))
 			label->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
 		zdatl->addChild(label);
@@ -162,6 +166,18 @@ namespace Utils {
 		if (alignment == "Center") return label->setAlignment(kCCTextAlignmentCenter);
 		if (alignment == "Right") return label->setAlignment(kCCTextAlignmentRight);
 		zdatl->setAnchorPoint({.5f, .5f});
+	}
+
+	void addChroma(cocos2d::CCLabelBMFont* label) {
+		label->setColor({255, 255, 255});
+		label->setOpacity(255);
+		CCActionInterval* sequence = CCSequence::create(
+			CCTintTo::create(1.f, 255, 128, 128), CCTintTo::create(1.f, 255, 255, 128),
+			CCTintTo::create(1.f, 128, 255, 128), CCTintTo::create(1.f, 128, 255, 255),
+			CCTintTo::create(1.f, 128, 128, 255), CCTintTo::create(1.f, 255, 128, 255), nullptr
+		);
+		CCAction* repeat = CCRepeatForever::create(sequence);
+		label->runAction(repeat);
 	}
 
 	std::string chooseFontFile(int64_t font) {
