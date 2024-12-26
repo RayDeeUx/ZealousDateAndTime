@@ -138,10 +138,7 @@ namespace Utils {
 		if (Utils::getBool("loggingZDATL")) log::info("ZDATL removed");
 	}
 
-	void setupZDATL(CCNode* zdatl) {
-		auto win = CCDirector::get()->getWinSize();
-		zdatl->setID("zealous-date-and-time-container"_spr);
-		zdatl->setScale(1.0f);
+	void setupZDATL(CCNode* zdatl, CCSize win) {
 		auto label = CCLabelBMFont::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scaleZDATL"));
@@ -155,17 +152,19 @@ namespace Utils {
 		}
 		if (Utils::getInt("font") == -2 && Utils::getBool("blendingZDATL"))
 			label->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
-		zdatl->addChild(label);
-		zdatl->setPosition({
-			win.width * static_cast<float>(Utils::getDouble("xPositionZDATL") / 100.f),
-			win.height * static_cast<float>(Utils::getDouble("yPositionZDATL") / 100.f)
-		});
-		zdatl->setZOrder(Utils::getInt("zOrderZDATL"));
 		std::string alignment = Utils::getString("textAlignZDATL");
 		if (alignment == "Left") label->setAlignment(kCCTextAlignmentLeft);
 		else if (alignment == "Center") label->setAlignment(kCCTextAlignmentCenter);
 		else if (alignment == "Right") label->setAlignment(kCCTextAlignmentRight);
+		zdatl->setPosition({
+			win.width * static_cast<float>(Utils::getDouble("xPositionZDATL") / 100.f),
+			win.height * static_cast<float>(Utils::getDouble("yPositionZDATL") / 100.f)
+		});
+		zdatl->setID("zealous-date-and-time-container"_spr);
+		zdatl->setZOrder(Utils::getInt("zOrderZDATL"));
 		zdatl->setAnchorPoint({.5f, .5f});
+		zdatl->setScale(1.0f);
+		zdatl->addChild(label);
 	}
 
 	void addChroma(cocos2d::CCLabelBMFont* label) {

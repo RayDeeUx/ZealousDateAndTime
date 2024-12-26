@@ -23,7 +23,7 @@ namespace Utils {
 	void handleZDATL();
 	void addZDATL();
 	void removeZDATL();
-	void setupZDATL(cocos2d::CCNode* zdatl);
+	void setupZDATL(cocos2d::CCNode* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());
 	void addChroma(cocos2d::CCLabelBMFont* label = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel()));
 	std::string chooseFontFile(int64_t font);
 }
