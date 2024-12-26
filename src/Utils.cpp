@@ -162,9 +162,9 @@ namespace Utils {
 		});
 		zdatl->setZOrder(Utils::getInt("zOrderZDATL"));
 		std::string alignment = Utils::getString("textAlignZDATL");
-		if (alignment == "Left") return label->setAlignment(kCCTextAlignmentLeft);
-		if (alignment == "Center") return label->setAlignment(kCCTextAlignmentCenter);
-		if (alignment == "Right") return label->setAlignment(kCCTextAlignmentRight);
+		if (alignment == "Left") label->setAlignment(kCCTextAlignmentLeft);
+		else if (alignment == "Center") label->setAlignment(kCCTextAlignmentCenter);
+		else if (alignment == "Right") label->setAlignment(kCCTextAlignmentRight);
 		zdatl->setAnchorPoint({.5f, .5f});
 	}
 
