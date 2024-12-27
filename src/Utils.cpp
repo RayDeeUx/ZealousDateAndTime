@@ -2,9 +2,6 @@
 #include "Manager.hpp"
 #include "Utils.hpp"
 #include <ctime>
-#ifdef GEODE_IS_WINDOWS
-#include <chrono>
-#endif
 
 using namespace geode::cocos;
 
@@ -60,7 +57,8 @@ namespace Utils {
 		#ifndef GEODE_IS_WINDOWS
 		std::string timeZone = now->tm_zone;
 		#else
-		std::string timeZone = std::chrono::current_zone()->get_info(std::chrono::system_clock::now()).abbrev;
+		std::tm* gmt = std::gmtime(&tinnyTim);
+		std::string timeZone = fmt::format("UTC{:.2f}", static_cast<double>(difftime(mktime(now), mktime(gmt))) / 60 / 60);
 		#endif
 		return fmt::format("{}{}, {}{}{:02}:{:02}{}{} {}",
 			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
