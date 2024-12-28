@@ -2,9 +2,6 @@
 #include "Manager.hpp"
 #include "Utils.hpp"
 #include <ctime>
-#ifdef GEODE_IS_WINDOWS
-#include <regex>
-#endif
 
 using namespace geode::cocos;
 
