@@ -51,12 +51,19 @@
 			"name": "12 Hour Clock",
 			"description": "Uses 12 hour clock instead of the 24 hour clock. Automatically includes AM/PM info.",
 			"type": "bool",
-			"default": true
+			"default": false
 		},
 		"includeSeconds": {
 			"name": "Include Seconds in Clock",
 			"type": "bool",
 			"default": false
+		},
+		"useUTC": {
+			"name": "Show UTC Offset Instead of Timezone Abbv.",
+			"description": "<cl>Adapted from original code by Cvolton.</c>\nReplaces your current timezone abbreviation with a (rough) estimate of your UTC offset.\n\n<cy>This setting is not available on Windows; Windows users are only shown their UTC offset.</c>",
+			"type": "bool",
+			"default": true,
+			"platforms": ["mac", "android32", "android64"]
 		},
 		"blendingZDATL": {
 			"name": "Readable Mode (Stronger Blending)",

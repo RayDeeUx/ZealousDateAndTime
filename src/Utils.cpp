@@ -58,11 +58,27 @@ namespace Utils {
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
 		std::string separator = Utils::getBool("splitDateAndTime") ? "\n" : " ";
 		#ifndef GEODE_IS_WINDOWS
-		std::string timeZone = now->tm_zone;
+		std::string timeZone = Utils::getBool("useUTC") ? Utils::getUTCOffset() : now->tm_zone;
 		#else
-		// std::tm* gmt = std::gmtime(&tinnyTim);
-		// std::string timeZone = fmt::format("UTC{:.2f}", static_cast<double>(difftime(mktime(now), mktime(gmt))) / 60 / 60);
+		/*
+		original approach: display UTC offset
+		didn't work for cvolton apparently because of 0 offset
+		*/
+
+		/*
+		std::tm* gmt = std::gmtime(&tinnyTim);
+		std::string timeZone = fmt::format("UTC{:.2f}", static_cast<double>(difftime(mktime(now), mktime(gmt))) / 60 / 60);
+		*/
+
 		// "i love bill gates!", said no one ever, after discovering that timezone abbreviations were paywalled behind arbitrary bullshit
+
+		/*
+		second approach: force out an abbreviation of any sort by <ctime>'s string formatting
+		apparently still didn't work for cvolton??? (he says it's currently CET for him and not CEST)
+		[the "S" is for "'S'ummer", not "'S'tandard"]
+		*/
+
+		/*
 		char buffer[80];
 		strftime(buffer, 80, "%EZ", now);
 
@@ -70,12 +86,38 @@ namespace Utils {
 		if (timeZone == "Coordinated Universal Time") timeZone = "UTC";
 		std::regex capitalsOnly = std::regex("[^A-Z]");
 		timeZone = std::regex_replace(timeZone, capitalsOnly, "");
+		*/
+
+		/*
+		last resort: cvolton assist + manual UTC calculation
+		(why can't MSVC just include a timezone abbv member variable like any other competent C implementation????)
+		*/
+
+		std::string timeZone = Utils::getUTCOffset();
 		#endif
 		return fmt::format("{}{}, {}{}{:02}:{:02}{}{} {}",
 			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
 			hour, now->tm_min, seconds, ampm, timeZone
 		);
 	}
+
+	std::string getUTCOffset() {
+		// code adapted from cvolton with heavily implied permission
+		// proof: https://discord.com/channels/911701438269386882/911702535373475870/1322321142819586099
+		std::tm timeInfo;
+		std::time_t epoch = 0;
+		#ifdef GEODE_IS_WINDOWS
+		localtime_s(&timeInfo, &epoch);
+		#else
+		localtime_r(&epoch, &timeInfo);
+		#endif
+		if (timeInfo.tm_hour == 0 && timeInfo.tm_min == 0) return "UTC";
+		char sign = timeInfo.tm_hour >= 12 ? '-' : timeInfo.tm_hour > 0 ? '+' : ' ';
+		int hour = timeInfo.tm_hour >= 12 ? 24 - timeInfo.tm_hour : timeInfo.tm_hour;
+		std::string minutes = timeInfo.tm_min != 0 ? fmt::format(":{:02}", timeInfo.tm_min) : "";
+		return fmt::format("UTC{}{:02}{}", sign, hour, minutes);
+	}
+
 
 	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene) {
 		return scene->getChildByID("zealous-date-and-time-container"_spr);

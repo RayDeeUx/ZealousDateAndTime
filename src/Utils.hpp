@@ -17,6 +17,7 @@ namespace Utils {
 	std::string getModVersion(Mod* mod);
 
 	std::string getCurrentTime();
+	std::string getUTCOffset();
 
 	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
 	cocos2d::CCNode* getZDATLLabel();
