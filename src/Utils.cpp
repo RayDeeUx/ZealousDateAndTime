@@ -168,7 +168,6 @@ namespace Utils {
 	}
 
 	void addZDATL() {
-		if (!Utils::modEnabled()) return;
 		auto zdatl = getZDATL();
 		if (zdatl) return zdatl->setVisible(true);
 		auto newLabel = ZealousDateAndTimeLabel::create();
@@ -181,7 +180,6 @@ namespace Utils {
 	}
 
 	void removeZDATL() {
-		if (!Utils::modEnabled()) return log::info("mod disabled, removal aborted");
 		auto zdatl = getZDATL();
 		if (!zdatl) return;
 		CCScene::get()->removeChildByID("zealous-date-and-time-container"_spr);
