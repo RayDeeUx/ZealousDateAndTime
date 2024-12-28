@@ -115,9 +115,8 @@ namespace Utils {
 		char sign = timeInfo.tm_hour >= 12 ? '-' : timeInfo.tm_hour > 0 ? '+' : ' ';
 		int hour = timeInfo.tm_hour >= 12 ? 24 - timeInfo.tm_hour : timeInfo.tm_hour;
 		std::string minutes = timeInfo.tm_min != 0 ? fmt::format(":{:02}", timeInfo.tm_min) : "";
-		return fmt::format("UTC{}{:02}{}", sign, hour, minutes);
+		return fmt::format("UTC{}{}{}", sign, hour, minutes);
 	}
-
 
 	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene) {
 		return scene->getChildByID("zealous-date-and-time-container"_spr);
