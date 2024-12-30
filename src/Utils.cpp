@@ -104,6 +104,7 @@ namespace Utils {
 	}
 
 	std::string getUTCOffset() {
+		if (!Utils::modEnabled()) return "";
 		// code adapted from cvolton with heavily implied permission
 		// proof: https://discord.com/channels/911701438269386882/911702535373475870/1322321142819586099
 		std::tm timeInfo;
@@ -121,6 +122,7 @@ namespace Utils {
 	}
 
 	std::string getUptime(std::time_t now) {
+		if (!Utils::modEnabled()) return "";
 		long elapsed = difftime(now, Manager::getSharedInstance()->originalTimestamp);
 		long days = elapsed / SECONDS_PER_DAY;
 		elapsed -= days * SECONDS_PER_DAY;
