@@ -24,6 +24,8 @@ public:
 		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 	};
 
+	std::time_t originalTimestamp;
+
 	static Manager* getSharedInstance() {
 		if (!instance) {
 			instance = new Manager();

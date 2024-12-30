@@ -3,6 +3,10 @@
 #include "Utils.hpp"
 #include <ctime>
 
+#define SECONDS_PER_DAY 86400
+#define SECONDS_PER_HOUR 3600
+#define SECONDS_PER_MINUTE 60
+
 using namespace geode::cocos;
 
 namespace Utils {
@@ -92,9 +96,10 @@ namespace Utils {
 
 		std::string timeZone = Utils::getUTCOffset();
 		#endif
-		return fmt::format("{}{}, {}{}{:02}:{:02}{}{} {}",
+		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), getUptime(tinnyTim)) : "";
+		return fmt::format("{}{}, {}{}{:02}:{:02}{}{} {}{}",
 			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
-			hour, now->tm_min, seconds, ampm, timeZone
+			hour, now->tm_min, seconds, ampm, timeZone, uptime
 		);
 	}
 
@@ -113,6 +118,23 @@ namespace Utils {
 		int hour = timeInfo.tm_hour >= 12 ? 24 - timeInfo.tm_hour : timeInfo.tm_hour;
 		std::string minutes = timeInfo.tm_min != 0 ? fmt::format(":{:02}", timeInfo.tm_min) : "";
 		return fmt::format("UTC{}{}{}", sign, hour, minutes);
+	}
+
+	std::string getUptime(std::time_t now) {
+		long elapsed = difftime(now, Manager::getSharedInstance()->originalTimestamp);
+		long days = elapsed / SECONDS_PER_DAY;
+		elapsed -= days * SECONDS_PER_DAY;
+		int hours = static_cast<int>(elapsed / SECONDS_PER_HOUR);
+		elapsed -= hours * SECONDS_PER_HOUR;
+		int minutes = static_cast<int>(elapsed / SECONDS_PER_MINUTE);
+		elapsed -= minutes * SECONDS_PER_MINUTE;
+		int seconds = static_cast<int>(elapsed);
+		std::string daysString = days > 0 ? fmt::format("{}:", days) : "";
+		// std::string daysString = fmt::format("{}:", days); // for debugging in case day count is way off
+		std::string hoursString = fmt::format("{:02}:", hours);
+		std::string minutesString = fmt::format("{:02}:", minutes);
+		std::string secondsString = fmt::format("{:02}", seconds);
+		return fmt::format("{}{}{}{}", daysString, hoursString, minutesString, secondsString);
 	}
 
 	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene) {

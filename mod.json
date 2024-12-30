@@ -65,6 +65,28 @@
 			"default": true,
 			"platforms": ["mac", "android32", "android64"]
 		},
+		"uptime": {
+			"name": "Include Uptime",
+			"description": "Display how long your game has been open.",
+			"type": "bool",
+			"default": false
+		},
+		"uptimePrefix": {
+			"name": "Uptime Prefix",
+			"type": "string",
+			"default": "Uptime",
+			"one-of": [
+				"Uptime",
+				"Open for",
+				"Time lost",
+				"Time wasted",
+				"Time spent",
+				"Spent",
+				"Lost",
+				"Wasted",
+				"Procrastinated"
+			]
+		},
 		"blending": {
 			"name": "Readable Mode (Stronger Blending)",
 			"description": "If the date/time label uses <cl>this font you're seeing right now</c>, apply invert blending to make the date/time label easier to read against a wider variety of backgrounds.",

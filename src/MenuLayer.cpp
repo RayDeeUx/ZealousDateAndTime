@@ -1,18 +1,18 @@
 #include <Geode/modify/MenuLayer.hpp>
 #include "Manager.hpp"
 #include "Utils.hpp"
+#include <ctime>
 
 using namespace geode::prelude;
 
 class $modify(MyMenuLayer, MenuLayer) {
 	bool init() {
-		if (!MenuLayer::init()) {
-			return false;
-		}
+		if (!MenuLayer::init()) return false;
 
-		if (Manager::getSharedInstance()->calledAlready) return true;
-
-		Manager::getSharedInstance()->calledAlready = true;
+		Manager* manager = Manager::getSharedInstance();
+		if (manager->calledAlready) return true;
+		manager->calledAlready = true;
+		manager->originalTimestamp = std::time(nullptr);
 
 		if (!Utils::modEnabled()) return true;
 		if (Utils::getZDATL()) return true;
