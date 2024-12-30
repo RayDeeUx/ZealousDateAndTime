@@ -131,8 +131,9 @@ namespace Utils {
 		int seconds = static_cast<int>(elapsed);
 		std::string daysString = days > 0 ? fmt::format("{}:", days) : "";
 		// std::string daysString = fmt::format("{}:", days); // for debugging in case day count is way off
-		std::string hoursString = fmt::format("{:02}:", hours);
-		std::string minutesString = fmt::format("{:02}:", minutes);
+		std::string hoursString = hours > 0 ? fmt::format("{:02}:", hours) : "";
+		// std::string hoursString = fmt::format("{:02}:", hours); // for debugging in case hour count is way off
+		std::string minutesString = hours > 0 ? fmt::format("{:02}:", minutes) : fmt::format("{}:", minutes);
 		std::string secondsString = fmt::format("{:02}", seconds);
 		return fmt::format("{}{}{}{}", daysString, hoursString, minutesString, secondsString);
 	}

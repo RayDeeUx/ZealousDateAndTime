@@ -49,7 +49,7 @@
 		},
 		"twelveHour": {
 			"name": "12 Hour Clock",
-			"description": "Uses 12 hour clock instead of the 24 hour clock. Automatically includes AM/PM info.",
+			"description": "Uses 12 hour clock instead of the 24 hour clock. <cy>Automatically includes AM/PM info.</c>",
 			"type": "bool",
 			"default": false
 		},
@@ -78,13 +78,20 @@
 			"one-of": [
 				"Uptime",
 				"Open for",
-				"Time lost",
-				"Time wasted",
-				"Time spent",
 				"Spent",
 				"Lost",
 				"Wasted",
-				"Procrastinated"
+				"Procrastinated",
+				"Building for",
+				"Creating for",
+				"Statgrinding for",
+				"Watching paint dry for",
+				"Staring at screen for",
+				"Skipping homework for",
+				"Ignoring chores for",
+				"Ditching class for",
+				"Time spent finding who asked",
+				"Time that could've been spent touching grass"
 			]
 		},
 		"blending": {
