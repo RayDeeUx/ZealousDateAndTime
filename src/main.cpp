@@ -4,22 +4,22 @@
 using namespace geode::prelude;
 
 $on_mod(Loaded) {
-	listenForSettingChanges<bool>("enabledZDATL", [](bool isEnabled) {
+	listenForSettingChanges<bool>("enabled", [](bool isEnabled) {
 		cocos2d::CCNode* zdatl = Utils::getZDATL();
 		if (!isEnabled && zdatl) return Utils::removeZDATL();
 		if (isEnabled && !zdatl) return Utils::addZDATL();
 	});
-	listenForSettingChanges<double>("scaleZDATL", [](double scale) {
+	listenForSettingChanges<double>("scale", [](double scale) {
 		cocos2d::CCNode* zdatl = Utils::getZDATLLabel();
 		if (!zdatl) return;
 		return zdatl->setScale(static_cast<float>(scale));
 	});
-	listenForSettingChanges<double>("rotationZDATL", [](double rotation) {
+	listenForSettingChanges<double>("rotation", [](double rotation) {
 		cocos2d::CCNode* zdatl = Utils::getZDATLLabel();
 		if (!zdatl) return;
 		return zdatl->setRotation(rotation);
 	});
-	listenForSettingChanges<int64_t>("zOrderZDATL", [](int64_t zOrder) {
+	listenForSettingChanges<int64_t>("zOrder", [](int64_t zOrder) {
 		cocos2d::CCNode* zdatl = Utils::getZDATL();
 		if (!zdatl) return;
 		return zdatl->setZOrder(static_cast<int>(zOrder));
@@ -28,19 +28,19 @@ $on_mod(Loaded) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());
 		if (!zdatl) return;
 		zdatl->setFntFile(Utils::chooseFontFile(fontID).c_str());
-		if (Utils::getBool("blendingZDATL") && fontID == -2) return zdatl->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
+		if (Utils::getBool("blending") && fontID == -2) return zdatl->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
 	});
-	listenForSettingChanges<double>("xPositionZDATL", [](double xPos) {
+	listenForSettingChanges<double>("xPosition", [](double xPos) {
 		cocos2d::CCNode* zdatl = Utils::getZDATL();
 		if (!zdatl) return;
 		return zdatl->setPositionX(CCDirector::get()->getWinSize().width * (static_cast<float>(xPos) / 100.f));
 	});
-	listenForSettingChanges<double>("yPositionZDATL", [](double yPos) {
+	listenForSettingChanges<double>("yPosition", [](double yPos) {
 		cocos2d::CCNode* zdatl = Utils::getZDATL();
 		if (!zdatl) return;
 		return zdatl->setPositionY(CCDirector::get()->getWinSize().height * (static_cast<float>(yPos) / 100.f));
 	});
-	listenForSettingChanges<bool>("blendingZDATL", [](bool blending) {
+	listenForSettingChanges<bool>("blending", [](bool blending) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());
 		if (!zdatl) return;
 		if (blending && Utils::getInt("font") == -2) return zdatl->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
@@ -57,7 +57,7 @@ $on_mod(Loaded) {
 			zdatl->setOpacity(color.a);
 		}
 	});
-	listenForSettingChanges<std::string>("textAlignZDATL", [](std::string alignment) {
+	listenForSettingChanges<std::string>("textAlign", [](std::string alignment) {
 		cocos2d::CCLabelBMFont* zdatl = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel());
 		if (!zdatl) return;
 		if (alignment == "Left") return zdatl->setAlignment(kCCTextAlignmentLeft);

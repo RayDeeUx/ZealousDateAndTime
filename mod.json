@@ -12,7 +12,7 @@
 	"description": "Adds the time and date to the FPS label.",
 	"repository": "https://github.com/RayDeeUx/ZealousDateAndTime",
 	"settings": {
-		"enabledZDATL": {
+		"enabled": {
 			"name": "Enabled",
 			"description": "Toggles the mod.",
 			"type": "bool",
@@ -65,13 +65,13 @@
 			"default": true,
 			"platforms": ["mac", "android32", "android64"]
 		},
-		"blendingZDATL": {
+		"blending": {
 			"name": "Readable Mode (Stronger Blending)",
 			"description": "If the date/time label uses <cl>this font you're seeing right now</c>, apply invert blending to make the date/time label easier to read against a wider variety of backgrounds.",
 			"type": "bool",
 			"default": true
 		},
-		"visibilityInPlayLayerZDATL": {
+		"visibilityInPlayLayer": {
 			"name": "Visibility When Playing Levels",
 			"type": "string",
 			"default": "Always Visible",
@@ -82,18 +82,18 @@
 				"Always Hidden"
 			]
 		},
-		"hideInLevelEditorLayerZDATL": {
+		"hideInLevelEditorLayer": {
 			"name": "Hide When Editing Levels",
 			"type": "bool",
 			"default": false
 		},
-		"hideEverywhereElseZDATL": {
+		"hideEverywhereElse": {
 			"name": "Hide Outside Of Levels",
 			"description": "Hides the date/time label outside of levels.",
 			"type": "bool",
 			"default": false
 		},
-		"textAlignZDATL": {
+		"textAlign": {
 			"name": "Text Alignment",
 			"type": "string",
 			"default": "Center",
@@ -108,7 +108,7 @@
 			"type": "rgba",
 			"default": [255, 255, 255, 255]
 		},
-		"xPositionZDATL": {
+		"xPosition": {
 			"name": "X Position (%)",
 			"type": "float",
 			"default": 50.0,
@@ -124,7 +124,7 @@
 				"slider-step": 0.01
 			}
 		},
-		"yPositionZDATL": {
+		"yPosition": {
 			"name": "Y Position (%)",
 			"type": "float",
 			"default": 2.50,
@@ -140,7 +140,7 @@
 				"slider-step": 0.01
 			}
 		},
-		"scaleZDATL": {
+		"scale": {
 			"name": "Scale",
 			"description": "Change the size of the date/time label.",
 			"type": "float",
@@ -174,7 +174,7 @@
 				"slider-step": 1
 			}
 		},
-		"rotationZDATL": {
+		"rotation": {
 			"name": "Rotation",
 			"type": "float",
 			"default": 0.0,
@@ -190,7 +190,7 @@
 				"slider-step": 0.01
 			}
 		},
-		"zOrderZDATL": {
+		"zOrder": {
 			"name": "Z Order",
 			"description": "Choose the Z order of the date/time label. This is so you can better adjust things to avoid mod incompatibilities.",
 			"type": "int",
@@ -207,7 +207,7 @@
 				"slider-step": 1
 			}
 		},
-		"loggingZDATL": {
+		"logging": {
 			"name": "Logging",
 			"type": "bool",
 			"default": true

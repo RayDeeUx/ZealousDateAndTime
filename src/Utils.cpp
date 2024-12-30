@@ -20,7 +20,7 @@ namespace Utils {
 
 	ccColor4B getColorAlpha(std::string setting) { return getSetting<ccColor4B>(setting); }
 
-	bool modEnabled() { return getBool("enabledZDATL"); }
+	bool modEnabled() { return getBool("enabled"); }
 	
 	bool isModLoaded(std::string modID) { return Loader::get()->isModLoaded(modID); }
 
@@ -129,15 +129,15 @@ namespace Utils {
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
 		cocos2d::CCNode* zdatl = getZDATL();
-		if (zdatl && getBool("hideEverywhereElseZDATL") && !pl && !lel) zdatl->setVisible(false);
-		if (zdatl && getBool("hideInLevelEditorLayerZDATL") && lel) return removeZDATL();
-		if (!zdatl && getBool("hideInLevelEditorLayerZDATL") && !lel) {
+		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
+		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return removeZDATL();
+		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
 			addZDATL();
 			zdatl = getZDATL();
 		}
 		if (gjbgl && zdatl) {
 			if (pl) {
-				std::string playLayerVisibility = getString("visibilityInPlayLayerZDATL");
+				std::string playLayerVisibility = getString("visibilityInPlayLayer");
 				if (playLayerVisibility.starts_with("Always ")) {
 					if (playLayerVisibility == "Always Visible") zdatl->setVisible(true);
 					else if (playLayerVisibility == "Always Hidden") zdatl->setVisible(false);
@@ -155,11 +155,11 @@ namespace Utils {
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayerZDATL")) removeZDATL();
+				if (getBool("hideInLevelEditorLayer")) removeZDATL();
 				else addZDATL();
 			}
 		} else if (zdatl) {
-			zdatl->setVisible(!getBool("hideEverywhereElseZDATL"));
+			zdatl->setVisible(!getBool("hideEverywhereElse"));
 		}
 		if (auto label = getZDATLLabel()) static_cast<CCLabelBMFont*>(label)->setString(getCurrentTime().c_str());
 	}
@@ -173,21 +173,21 @@ namespace Utils {
 		CCScene::get()->addChild(newLabel);
 		SceneManager::get()->keepAcrossScenes(newLabel);
 		newLabel->setVisible(true);
-		if (Utils::getBool("loggingZDATL")) log::info("ZDATL added");
+		if (Utils::getBool("logging")) log::info("ZDATL added");
 	}
 
 	void removeZDATL() {
 		auto zdatl = getZDATL();
 		if (!zdatl) return;
 		CCScene::get()->removeChildByID("zealous-date-and-time-container"_spr);
-		if (Utils::getBool("loggingZDATL")) log::info("ZDATL removed");
+		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
 	void setupZDATL(CCNode* zdatl, CCSize win) {
 		auto label = CCLabelBMFont::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		label->setID("zealous-date-and-time-label"_spr);
-		label->setScale(Utils::getDouble("scaleZDATL"));
-		label->setRotation(Utils::getDouble("rotationZDATL"));
+		label->setScale(Utils::getDouble("scale"));
+		label->setRotation(Utils::getDouble("rotation"));
 		auto color = Utils::getColorAlpha("color");
 		if (color == ccColor4B{0, 0, 0, 0}) {
 			Utils::addChroma(label);
@@ -195,18 +195,18 @@ namespace Utils {
 			label->setColor({color.r, color.g, color.b});
 			label->setOpacity(color.a);
 		}
-		if (Utils::getInt("font") == -2 && Utils::getBool("blendingZDATL"))
+		if (Utils::getInt("font") == -2 && Utils::getBool("blending"))
 			label->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
-		std::string alignment = Utils::getString("textAlignZDATL");
+		std::string alignment = Utils::getString("textAlign");
 		if (alignment == "Left") label->setAlignment(kCCTextAlignmentLeft);
 		else if (alignment == "Center") label->setAlignment(kCCTextAlignmentCenter);
 		else if (alignment == "Right") label->setAlignment(kCCTextAlignmentRight);
 		zdatl->setPosition({
-			win.width * static_cast<float>(Utils::getDouble("xPositionZDATL") / 100.f),
-			win.height * static_cast<float>(Utils::getDouble("yPositionZDATL") / 100.f)
+			win.width * static_cast<float>(Utils::getDouble("xPosition") / 100.f),
+			win.height * static_cast<float>(Utils::getDouble("yPosition") / 100.f)
 		});
 		zdatl->setID("zealous-date-and-time-container"_spr);
-		zdatl->setZOrder(Utils::getInt("zOrderZDATL"));
+		zdatl->setZOrder(Utils::getInt("zOrder"));
 		zdatl->setAnchorPoint({.5f, .5f});
 		zdatl->setScale(1.0f);
 		zdatl->addChild(label);
