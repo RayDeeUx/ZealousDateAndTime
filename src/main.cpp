@@ -1,4 +1,6 @@
 #include <Geode/loader/SettingV3.hpp>
+
+#include "Manager.hpp"
 #include "Utils.hpp"
 
 using namespace geode::prelude;
@@ -63,5 +65,12 @@ $on_mod(Loaded) {
 		if (alignment == "Left") return zdatl->setAlignment(kCCTextAlignmentLeft);
 		if (alignment == "Center") return zdatl->setAlignment(kCCTextAlignmentCenter);
 		if (alignment == "Right") return zdatl->setAlignment(kCCTextAlignmentRight);
+	});
+	listenForSettingChanges<std::string>("language", [](std::string lang) {
+		Manager* manager = Manager::getSharedInstance();
+		manager->daysOfWeek = manager->daysOfWeekMap.contains(lang) ?
+			manager->daysOfWeekMap.at(lang) : manager->daysOfWeekFallback;
+		manager->months = manager->monthsMap.contains(lang) ?
+			manager->monthsMap.at(lang) : manager->monthsFallback;
 	});
 }

@@ -49,11 +49,11 @@ namespace Utils {
 				ampm = " AM";
 			}
 		}
-		if (Utils::getBool("shortMonth") && month != "May") {
-			month = fmt::format("{}", month.substr(0, 3));
-		}
-		std::string dow = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : ""; // dow = day of week
-		std::string dayOfWeek = !Utils::getBool("dayOfWeek") ? "" : fmt::format("{}, ", !Utils::getBool("shortDayOfWeek") ? dow : dow.substr(0, 3));
+		if (Utils::getBool("shortMonth") && month.length() > Utils::getInt("monthTruncation"))
+			month = fmt::format("{}", month.substr(0, Utils::getInt("monthTruncation")));
+		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : "";
+		if (Utils::getBool("shortDayOfWeek") && dayOfWeek.length() > Utils::getInt("dOWTruncation"))
+			dayOfWeek = fmt::format("{}", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
 		std::string dateMonth = Utils::getBool("dayFirst") ?
 			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
@@ -209,6 +209,7 @@ namespace Utils {
 	}
 
 	void setupZDATL(CCNode* zdatl, CCSize win) {
+		Utils::setupMonthsAndDay();
 		auto label = CCLabelBMFont::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scale"));
@@ -235,6 +236,13 @@ namespace Utils {
 		zdatl->setAnchorPoint({.5f, .5f});
 		zdatl->setScale(1.0f);
 		zdatl->addChild(label);
+	}
+
+	void setupMonthsAndDay(Manager* manager, std::string lang) {
+		manager->daysOfWeek = manager->daysOfWeekMap.contains(lang) ?
+			manager->daysOfWeekMap.at(lang) : manager->daysOfWeekFallback;
+		manager->months = manager->monthsMap.contains(lang) ?
+			manager->monthsMap.at(lang) : manager->monthsFallback;
 	}
 
 	void addChroma(cocos2d::CCLabelBMFont* label) {

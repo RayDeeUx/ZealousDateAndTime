@@ -13,6 +13,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		if (manager->calledAlready) return true;
 		manager->calledAlready = true;
 		manager->originalTimestamp = std::time(nullptr);
+		Utils::setupMonthsAndDay();
 
 		if (!Utils::modEnabled()) return true;
 		if (Utils::getZDATL()) return true;

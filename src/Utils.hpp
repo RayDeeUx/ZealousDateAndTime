@@ -27,5 +27,6 @@ namespace Utils {
 	void removeZDATL();
 	void setupZDATL(cocos2d::CCNode* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());
 	void addChroma(cocos2d::CCLabelBMFont* label = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel()));
+	void setupMonthsAndDay(Manager* manager = Manager::getSharedInstance(), std::string lang = Utils::getString("language"));
 	std::string chooseFontFile(int64_t font);
 }

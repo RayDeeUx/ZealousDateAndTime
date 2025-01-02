@@ -7,7 +7,7 @@
 	},
 	"id": "raydeeux.zealousdateandtime",
 	"name": "ZealousDateAndTime",
-	"version": "v1.0.0",
+	"version": "v1.0.1",
 	"developer": "RayDeeUx",
 	"description": "Adds the time and date to the FPS label.",
 	"repository": "https://github.com/RayDeeUx/ZealousDateAndTime",
@@ -18,6 +18,19 @@
 			"type": "bool",
 			"default": true
 		},
+		"language": {
+			"name": "Language",
+			"description": "Choose the language for the Day of Week and Month Name values.\n\n<cy>Language support is</c> <cr>HEAVILY</c> <cy>limited, as fonts in Geometry Dash only support the 26 letters of the English alphabet.</c>\n<cy>(Unfortunately, accent marks are not included.)</c>\n\n<cl>Translations provided by DeepL.</c>",
+			"type": "string",
+			"default": "English",
+			"one-of": [
+				"English", "Spanish", "French", "Italian", "German",
+				"Portuguese", "Finnish", "Czech", "Slovak", "Croatian",
+				"Romanian", "Dutch", "Welsh", "Scots Gaelic", "Indonesian",
+				"Japanese (Romaji)", "Chinese Mandarin (Pinyin)",
+				"Korean (Revised Romanization)"
+			]
+		},
 		"dayOfWeek": {
 			"name": "Day of Week (Sun, Mon, Etc)",
 			"type": "bool",
@@ -25,9 +38,26 @@
 		},
 		"shortDayOfWeek": {
 			"name": "Abbreviated Day of Week",
-			"description": "Truncates the day of the week to its first three characters.\n\n(Example: <cl>Sunday</c> -> <cl>Sun</c>)",
+			"description": "Truncates the day of the week to its first <co>N</c> characters, with <co>N</c> being the number from the <cl>\"Day of Week Truncation\"</c> setting.\n\nUsing English and 3 characters: <cl>Sunday</c> -> <cl>Sun</c>",
 			"type": "bool",
 			"default": true
+		},
+		"dOWTruncation":  {
+			"name": "Day of Week Truncation",
+			"description": "The number of characters to truncate the <cl>Day of Week</c> to.",
+			"type": "int",
+			"default": 3,
+			"min": 3,
+			"max": 25,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 1
+			}
 		},
 		"dayFirst": {
 			"name": "Day First",
@@ -37,9 +67,26 @@
 		},
 		"shortMonth": {
 			"name": "Abbreviated Month Name",
-			"description": "Truncates the month name to its first three characters.\n\n(Example: <cl>December</c> -> <cl>Dec</c>)",
+			"description": "Truncates the month name to its first <co>N</c> characters, with <co>N</c> being the number from the <cl>\"Month Name Truncation\"</c> setting.\n\nUsing English and 3 characters: <cl>December</c> -> <cl>Dec</c>",
 			"type": "bool",
 			"default": true
+		},
+		"monthTruncation": {
+			"name": "Month Name Truncation",
+			"description": "The number of characters to truncate the <cl>Month Name</c> to.",
+			"type": "int",
+			"default": 3,
+			"min": 3,
+			"max": 25,
+			"control": {
+				"input": true,
+				"slider": true,
+				"arrows": true,
+				"big-arrows": true,
+				"arrow-step": 1,
+				"big-arrow-step": 5,
+				"slider-step": 1
+			}
 		},
 		"splitDateAndTime": {
 			"name": "Separate Date from Time",
