@@ -52,7 +52,7 @@ namespace Utils {
 			month = fmt::format("{}", month.substr(0, Utils::getInt("monthTruncation")));
 		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : "";
 		if (Utils::getBool("shortDayOfWeek") && dayOfWeek.length() > Utils::getInt("dOWTruncation"))
-			dayOfWeek = fmt::format("{}", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
+			dayOfWeek = fmt::format("{}, ", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
 		std::string dateMonth = Utils::getBool("dayFirst") ?
 			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
