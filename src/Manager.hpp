@@ -53,7 +53,7 @@ public:
 		{"German", {"Unbekannt", "Januar", "Februar", "Marz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"}},
 		{"Portuguese", {"Desconhecido", "Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"}},
 		{"Finnish", {"Tuntematon", "Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesakuu", "Heinakuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"}},
-		{"Czech", {"Neznamy", "Leden", "Unor", "Brezen", "Duben", "Kveten", "Cerven", "Cervenec", "Srpen", "Zari", "rijen", "Listopad", "Prosinec"}},
+		{"Czech", {"Neznamy", "Leden", "Unor", "Brezen", "Duben", "Kveten", "Cerven", "Cervenec", "Srpen", "Zari", "Rijen", "Listopad", "Prosinec"}},
 		{"Slovak", {"Nezname", "Januar", "Februar", "Marec", "Aprila", "Maj", "Jun", "Jul", "Augusta", "Septembra", "Oktober", "Novembra", "Decembra"}},
 		{"Croatian", {"Nepoznato", "Sijecanj", "Veljaca", "Ozujak", "Travanj", "Svibanj", "Lipanj", "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"}},
 		{"Romanian", {"Necunoscut", "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"}},
