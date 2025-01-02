@@ -52,7 +52,7 @@ namespace Utils {
 			month = fmt::format("{}", month.substr(0, Utils::getInt("monthTruncation")));
 		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : "";
 		if (Utils::getBool("shortDayOfWeek") && dayOfWeek.length() > Utils::getInt("dOWTruncation"))
-			dayOfWeek = fmt::format("{}, ", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
+			dayOfWeek = fmt::format("{}", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
 		std::string dateMonth = Utils::getBool("dayFirst") ?
 			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
 		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
@@ -96,7 +96,7 @@ namespace Utils {
 		std::string timeZone = Utils::getUTCOffset();
 		#endif
 		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), getUptime(tinnyTim)) : "";
-		return fmt::format("{}{}, {}{}{:02}:{:02}{}{} {}{}",
+		return fmt::format("{}, {}, {}{}{:02}:{:02}{}{} {}{}",
 			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
 			hour, now->tm_min, seconds, ampm, timeZone, uptime
 		);
