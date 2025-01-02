@@ -1,4 +1,5 @@
 #pragma once
+#include "Manager.hpp"
 
 using namespace geode::prelude;
 
