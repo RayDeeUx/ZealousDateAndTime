@@ -9,7 +9,7 @@
 	"name": "ZealousDateAndTime",
 	"version": "v1.0.1",
 	"developer": "RayDeeUx",
-	"description": "Adds the time and date to the FPS label.",
+	"description": "Adds the time and date to the screen.",
 	"repository": "https://github.com/RayDeeUx/ZealousDateAndTime",
 	"settings": {
 		"enabled": {
