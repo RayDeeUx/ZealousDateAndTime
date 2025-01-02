@@ -20,7 +20,7 @@
 		},
 		"language": {
 			"name": "Language",
-			"description": "Choose the language for the Day of Week and Month Name values.\n\n<cy>Language support is</c> <cr>HEAVILY</c> <cy>limited, as fonts in Geometry Dash only support the 26 letters of the English alphabet.</c>\n<cy>(Unfortunately, accent marks are not included.)</c>\n\n<cl>Translations provided by DeepL.</c>",
+			"description": "Choose the language for the Day of Week and Month Name.\n\n<cy>Language support is</c> <cr>HEAVILY</c> <cy>limited, as fonts in Geometry Dash only support the 26 letters of the English alphabet.</c>\n<cy>(Unfortunately, accent marks are not included.)</c>\n\n<cl>Translations provided by DeepL.</c>",
 			"type": "string",
 			"default": "English",
 			"one-of": [
