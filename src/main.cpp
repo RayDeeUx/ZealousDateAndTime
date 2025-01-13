@@ -5,9 +5,6 @@
 using namespace geode::prelude;
 
 $on_mod(Loaded) {
-	listenForAllSettingChanges([](std::shared_ptr<SettingV3> setting){
-		if (Utils::isModLoaded("ziegenhainy.dyslexia-simulator")) return Utils::showIncompat();
-	});
 	listenForSettingChanges<bool>("enabled", [](bool isEnabled) {
 		ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
 		if (!isEnabled && zdatl) return Utils::removeZDATL();
@@ -62,6 +59,7 @@ $on_mod(Loaded) {
 		}
 	});
 	listenForSettingChanges<std::string>("textAlign", [](std::string alignment) {
+		if (Utils::isModLoaded("ziegenhainy.dyslexia-simulator")) return FLAlertLayer::create("Attention!", "Text alignment is unavailable when using the Dyslexia Simulator mod. Please disable it if you would like to adjust text alignment.", "Close")->show();
 		ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
 		if (!zdatl) return;
 		if (alignment == "Left") return zdatl->setAlignment(kCCTextAlignmentLeft);

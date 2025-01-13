@@ -22,7 +22,7 @@ namespace Utils {
 
 	ccColor4B getColorAlpha(std::string setting) { return getSetting<ccColor4B>(setting); }
 
-	bool modEnabled() { return getBool("enabled") && !isModLoaded("ziegenhainy.dyslexia-simulator"); }
+	bool modEnabled() { return getBool("enabled"); }
 	
 	bool isModLoaded(std::string modID) { return Loader::get()->isModLoaded(modID); }
 
@@ -178,7 +178,10 @@ namespace Utils {
 				else addZDATL();
 			}
 		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
-		if (zdatl) zdatl->setString(getCurrentTime().c_str());
+		if (zdatl) {
+			if (!isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->setString(getCurrentTime().c_str());
+			else zdatl->setString(getCurrentTime().c_str(), false);
+		}
 	}
 
 	void addZDATL() {
@@ -247,10 +250,6 @@ namespace Utils {
 		if (font == -2) return "chatFont.fnt";
 		if (font != 0) return fmt::format("gjFont{:02d}.fnt", font);
 		return "bigFont.fnt";
-	}
-
-	void showIncompat() {
-		FLAlertLayer::create("Attention!", "Please disable the Dyslexia Simulator mod. You want to be able to tell the time, don't you?", "Close")->show();
 	}
 
 }

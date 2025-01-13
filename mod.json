@@ -7,7 +7,7 @@
 	},
 	"id": "raydeeux.zealousdateandtime",
 	"name": "ZealousDateAndTime",
-	"version": "v1.0.2",
+	"version": "v1.0.3",
 	"developer": "RayDeeUx",
 	"description": "Adds the time and date to the screen.",
 	"repository": "https://github.com/RayDeeUx/ZealousDateAndTime",
@@ -278,13 +278,6 @@
 			"default": false
 		}
 	},
-	"incompatibilities": [
-		{
-			"id": "ziegenhainy.dyslexia-simulator",
-			"version": "*",
-			"reason": "breaking"
-		}
-	],
 	"issues": {
 		"url": "https://discord.com/channels/911701438269386882/1205523212444639292",
 		"info": "Ping me <cl>(@erymanthus)</c> in the Geode SDK Discord server's <cl>#help</c> channel if you need help. <cr>DMs are NOT accepted.</c>"

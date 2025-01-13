@@ -30,6 +30,4 @@ namespace Utils {
 	void addChroma(ZealousDateAndTimeLabel* label = Utils::getZDATL());
 	void setupMonthsAndDay(Manager* manager = Manager::getSharedInstance(), std::string lang = Utils::getString("language"));
 	std::string chooseFontFile(int64_t font);
-
-	void showIncompat();
 }
