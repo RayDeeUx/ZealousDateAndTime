@@ -207,20 +207,20 @@ namespace Utils {
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scale"));
 		label->setRotation(Utils::getDouble("rotation"));
-		auto color = Utils::getColorAlpha("color");
 		label->setZOrder(Utils::getInt("zOrder"));
 		label->setAnchorPoint({.5f, .5f});
-		if (color == ccColor4B{0, 0, 0, 0}) Utils::addChroma(label);
-		else {
-			label->setColor({color.r, color.g, color.b});
-			label->setOpacity(color.a);
-		}
 		if (Utils::getInt("font") == -2 && Utils::getBool("blending"))
 			label->setBlendFunc({GL_ONE_MINUS_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA});
 		std::string alignment = Utils::getString("textAlign");
 		if (alignment == "Left") label->setAlignment(kCCTextAlignmentLeft);
 		else if (alignment == "Center") label->setAlignment(kCCTextAlignmentCenter);
 		else if (alignment == "Right") label->setAlignment(kCCTextAlignmentRight);
+		auto color = Utils::getColorAlpha("color");
+		if (color == ccColor4B{0, 0, 0, 0}) Utils::addChroma(label);
+		else {
+			label->setColor({color.r, color.g, color.b});
+			label->setOpacity(color.a);
+		}
 		label->setPosition({
 			win.width * static_cast<float>(Utils::getDouble("xPosition") / 100.f),
 			win.height * static_cast<float>(Utils::getDouble("yPosition") / 100.f)
