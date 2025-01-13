@@ -147,7 +147,7 @@ namespace Utils {
 		const auto gjbgl = GJBaseGameLayer::get();
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
-		cocos2d::CCNode* zdatl = getZDATL();
+		ZealousDateAndTimeLabel* zdatl = getZDATL();
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return removeZDATL();
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
@@ -177,10 +177,8 @@ namespace Utils {
 				if (getBool("hideInLevelEditorLayer")) removeZDATL();
 				else addZDATL();
 			}
-		} else if (zdatl) {
-			zdatl->setVisible(!getBool("hideEverywhereElse"));
-		}
-		if (auto label = getZDATL()) label->setString(getCurrentTime().c_str());
+		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
+		if (zdatl) zdatl->setString(getCurrentTime().c_str());
 	}
 
 	void addZDATL() {
