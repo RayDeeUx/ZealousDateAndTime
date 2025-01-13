@@ -1,4 +1,3 @@
-#include "ZealousDateAndTimeLabel.hpp"
 #include "Utils.hpp"
 #include <ctime>
 
@@ -139,12 +138,8 @@ namespace Utils {
 		return fmt::format("{}{}{}{}", daysString, hoursString, minutesString, secondsString);
 	}
 
-	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene) {
-		return scene->getChildByID("zealous-date-and-time-container"_spr);
-	}
-
-	cocos2d::CCNode* getZDATLLabel() {
-		return getZDATL()->getChildByID("zealous-date-and-time-label"_spr);
+	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene) {
+		return static_cast<ZealousDateAndTimeLabel*>(scene->getChildByID("zealous-date-and-time-label"_spr));
 	}
 	
 	void handleZDATL() {
@@ -185,13 +180,13 @@ namespace Utils {
 		} else if (zdatl) {
 			zdatl->setVisible(!getBool("hideEverywhereElse"));
 		}
-		if (auto label = getZDATLLabel()) static_cast<CCLabelBMFont*>(label)->setString(getCurrentTime().c_str());
+		if (auto label = getZDATL()) label->setString(getCurrentTime().c_str());
 	}
 
 	void addZDATL() {
 		auto zdatl = getZDATL();
 		if (zdatl) return zdatl->setVisible(true);
-		auto newLabel = ZealousDateAndTimeLabel::create();
+		auto newLabel = ZealousDateAndTimeLabel::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
 		setupZDATL(newLabel);
 		CCScene::get()->addChild(newLabel);
@@ -203,20 +198,20 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = getZDATL();
 		if (!zdatl) return;
-		CCScene::get()->removeChildByID("zealous-date-and-time-container"_spr);
+		CCScene::get()->removeChildByID("zealous-date-and-time-label"_spr);
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
-	void setupZDATL(CCNode* zdatl, CCSize win) {
+	void setupZDATL(ZealousDateAndTimeLabel* label, CCSize win) {
 		Utils::setupMonthsAndDay();
-		auto label = CCLabelBMFont::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scale"));
 		label->setRotation(Utils::getDouble("rotation"));
 		auto color = Utils::getColorAlpha("color");
-		if (color == ccColor4B{0, 0, 0, 0}) {
-			Utils::addChroma(label);
-		} else {
+		label->setZOrder(Utils::getInt("zOrder"));
+		label->setAnchorPoint({.5f, .5f});
+		if (color == ccColor4B{0, 0, 0, 0}) Utils::addChroma(label);
+		else {
 			label->setColor({color.r, color.g, color.b});
 			label->setOpacity(color.a);
 		}
@@ -226,15 +221,10 @@ namespace Utils {
 		if (alignment == "Left") label->setAlignment(kCCTextAlignmentLeft);
 		else if (alignment == "Center") label->setAlignment(kCCTextAlignmentCenter);
 		else if (alignment == "Right") label->setAlignment(kCCTextAlignmentRight);
-		zdatl->setPosition({
+		label->setPosition({
 			win.width * static_cast<float>(Utils::getDouble("xPosition") / 100.f),
 			win.height * static_cast<float>(Utils::getDouble("yPosition") / 100.f)
 		});
-		zdatl->setID("zealous-date-and-time-container"_spr);
-		zdatl->setZOrder(Utils::getInt("zOrder"));
-		zdatl->setAnchorPoint({.5f, .5f});
-		zdatl->setScale(1.0f);
-		zdatl->addChild(label);
 	}
 
 	void setupMonthsAndDay(Manager* manager, std::string lang) {
@@ -244,7 +234,7 @@ namespace Utils {
 			manager->monthsMap.at(lang) : manager->monthsFallback;
 	}
 
-	void addChroma(cocos2d::CCLabelBMFont* label) {
+	void addChroma(ZealousDateAndTimeLabel* label) {
 		label->setColor({255, 255, 255});
 		label->setOpacity(255);
 		CCActionInterval* sequence = CCSequence::create(

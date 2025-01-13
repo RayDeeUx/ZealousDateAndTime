@@ -1,9 +1,9 @@
 #pragma once
 
-class ZealousDateAndTimeLabel : public cocos2d::CCNode {
+class ZealousDateAndTimeLabel : public cocos2d::CCLabelBMFont {
 protected:
-	bool init();
+	bool init(const char*, const char*);
 
 public:
-	static ZealousDateAndTimeLabel* create();
+	static ZealousDateAndTimeLabel* create(const char*, const char*);
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include "ZealousDateAndTimeLabel.hpp"
 #include "Manager.hpp"
 
 using namespace geode::prelude;
@@ -21,13 +22,12 @@ namespace Utils {
 	std::string getUTCOffset();
 	std::string getUptime(std::time_t now);
 
-	cocos2d::CCNode* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
-	cocos2d::CCNode* getZDATLLabel();
+	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
 	void handleZDATL();
 	void addZDATL();
 	void removeZDATL();
-	void setupZDATL(cocos2d::CCNode* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());
-	void addChroma(cocos2d::CCLabelBMFont* label = static_cast<CCLabelBMFont*>(Utils::getZDATLLabel()));
+	void setupZDATL(ZealousDateAndTimeLabel* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());
+	void addChroma(ZealousDateAndTimeLabel* label = Utils::getZDATL());
 	void setupMonthsAndDay(Manager* manager = Manager::getSharedInstance(), std::string lang = Utils::getString("language"));
 	std::string chooseFontFile(int64_t font);
 }
