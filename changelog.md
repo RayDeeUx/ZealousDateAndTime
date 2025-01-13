@@ -1,4 +1,6 @@
 # ZealousDateAndTime Changelog
+## v1.0.2
+- Mass refactor to *maybe* build a bit of resistance against that dyslexia simulator mod.
 ## v1.0.1
 - Added languages for month names <cl>(Jan/Feb/Mar/etc.)</c> and day of week names <cl>(Sun/Mon/Tue/etc.)</c>.
   - Only romanizations are available for Japanese, Korean, and Chinese.

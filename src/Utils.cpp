@@ -22,7 +22,7 @@ namespace Utils {
 
 	ccColor4B getColorAlpha(std::string setting) { return getSetting<ccColor4B>(setting); }
 
-	bool modEnabled() { return getBool("enabled"); }
+	bool modEnabled() { return getBool("enabled") && !isModLoaded("ziegenhainy.dyslexia-simulator"); }
 	
 	bool isModLoaded(std::string modID) { return Loader::get()->isModLoaded(modID); }
 
@@ -248,4 +248,9 @@ namespace Utils {
 		if (font != 0) return fmt::format("gjFont{:02d}.fnt", font);
 		return "bigFont.fnt";
 	}
+
+	void showIncompat() {
+		FLAlertLayer::create("Attention!", "Please disable the Dyslexia Simulator mod. You want to be able to tell the time, don't you?", "Close")->show();
+	}
+
 }
