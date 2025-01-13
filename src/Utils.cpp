@@ -215,16 +215,14 @@ namespace Utils {
 		if (alignment == "Left") label->setAlignment(kCCTextAlignmentLeft);
 		else if (alignment == "Center") label->setAlignment(kCCTextAlignmentCenter);
 		else if (alignment == "Right") label->setAlignment(kCCTextAlignmentRight);
-		auto color = Utils::getColorAlpha("color");
-		if (color == ccColor4B{0, 0, 0, 0}) Utils::addChroma(label);
-		else {
-			label->setColor({color.r, color.g, color.b});
-			label->setOpacity(color.a);
-		}
 		label->setPosition({
 			win.width * static_cast<float>(Utils::getDouble("xPosition") / 100.f),
 			win.height * static_cast<float>(Utils::getDouble("yPosition") / 100.f)
 		});
+		auto color = Utils::getColorAlpha("color");
+		if (color == ccColor4B{0, 0, 0, 0}) return Utils::addChroma(label);
+		label->setColor({color.r, color.g, color.b});
+		label->setOpacity(color.a);
 	}
 
 	void setupMonthsAndDay(Manager* manager, std::string lang) {
