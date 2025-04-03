@@ -1,13 +1,14 @@
 {
-	"geode": "4.0.1",
+	"geode": "4.3.1",
 	"gd": {
 		"win": "2.2074",
 		"mac": "2.2074",
-		"android": "2.2074"
+		"android": "2.2074",
+		"ios": "2.2074"
 	},
 	"id": "raydeeux.zealousdateandtime",
 	"name": "ZealousDateAndTime",
-	"version": "v1.0.3",
+	"version": "v1.0.4",
 	"developer": "RayDeeUx",
 	"description": "Adds the time and date to the screen.",
 	"repository": "https://github.com/RayDeeUx/ZealousDateAndTime",
@@ -24,10 +25,23 @@
 			"type": "string",
 			"default": "English",
 			"one-of": [
-				"English", "Spanish", "French", "Italian", "German",
-				"Portuguese", "Finnish", "Czech", "Slovak", "Croatian",
-				"Romanian", "Dutch", "Welsh", "Scots Gaelic", "Indonesian",
-				"Japanese (Romaji)", "Chinese Mandarin (Pinyin)",
+				"English",
+				"Spanish",
+				"French",
+				"Italian",
+				"German",
+				"Portuguese",
+				"Finnish",
+				"Czech",
+				"Slovak",
+				"Croatian",
+				"Romanian",
+				"Dutch",
+				"Welsh",
+				"Scots Gaelic",
+				"Indonesian",
+				"Japanese (Romaji)",
+				"Chinese Mandarin (Pinyin)",
 				"Korean (Revised Romanization)"
 			]
 		},
@@ -42,7 +56,7 @@
 			"type": "bool",
 			"default": true
 		},
-		"dOWTruncation":  {
+		"dOWTruncation": {
 			"name": "Day of Week Truncation",
 			"description": "The number of characters to truncate the <cl>Day of Week</c> to.",
 			"type": "int",
@@ -110,7 +124,11 @@
 			"description": "<cl>Adapted from original code by Cvolton.</c>\nReplaces your current timezone abbreviation with a (rough) estimate of your UTC offset.\n\n<cy>This setting is not available on Windows; Windows users are only shown their UTC offset.</c>",
 			"type": "bool",
 			"default": true,
-			"platforms": ["mac", "android32", "android64"]
+			"platforms": [
+				"mac",
+				"android32",
+				"android64"
+			]
 		},
 		"uptime": {
 			"name": "Include Uptime",
@@ -123,10 +141,21 @@
 			"type": "string",
 			"default": "Uptime",
 			"one-of": [
-				"Uptime", "Open for", "Spent", "Lost", "Wasted",
-				"Procrastinated", "Building for", "Creating for", "Statgrinding for",
-				"Searching for who asked for", "Not touching grass for", "Watching paint dry for",
-				"Staring at screen for", "Skipping homework for", "Ignoring chores for",
+				"Uptime",
+				"Open for",
+				"Spent",
+				"Lost",
+				"Wasted",
+				"Procrastinated",
+				"Building for",
+				"Creating for",
+				"Statgrinding for",
+				"Searching for who asked for",
+				"Not touching grass for",
+				"Watching paint dry for",
+				"Staring at screen for",
+				"Skipping homework for",
+				"Ignoring chores for",
 				"Ditching class for"
 			]
 		},
@@ -171,14 +200,19 @@
 		"color": {
 			"name": "Color",
 			"type": "rgba",
-			"default": [255, 255, 255, 255]
+			"default": [
+				255,
+				255,
+				255,
+				255
+			]
 		},
 		"xPosition": {
 			"name": "X Position (%)",
 			"type": "float",
-			"default": 50.0,
-			"min": -100.0,
-			"max": 100.0,
+			"default": 50,
+			"min": -100,
+			"max": 100,
 			"control": {
 				"input": true,
 				"slider": true,
@@ -192,9 +226,9 @@
 		"yPosition": {
 			"name": "Y Position (%)",
 			"type": "float",
-			"default": 2.50,
-			"min": 0.0,
-			"max": 100.0,
+			"default": 2.5,
+			"min": 0,
+			"max": 100,
 			"control": {
 				"input": true,
 				"slider": true,
@@ -211,7 +245,7 @@
 			"type": "float",
 			"default": 0.4,
 			"min": 0.01,
-			"max": 2.00,
+			"max": 2,
 			"control": {
 				"input": true,
 				"slider": true,
@@ -242,9 +276,9 @@
 		"rotation": {
 			"name": "Rotation",
 			"type": "float",
-			"default": 0.0,
-			"min": 0.0,
-			"max": 360.0,
+			"default": 0,
+			"min": 0,
+			"max": 360,
 			"control": {
 				"input": true,
 				"slider": true,
