@@ -1,4 +1,6 @@
 # ZealousDateAndTime Changelog
+## v1.0.4
+- Experimental iOS support.
 ## v1.0.3
 - Use a less militant approach to build resistance against that dyslexia simulator mod.
 ## v1.0.2
