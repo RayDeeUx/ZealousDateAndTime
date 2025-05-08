@@ -1,14 +1,14 @@
 {
-	"geode": "4.3.1",
+	"geode": "4.4.0",
 	"gd": {
 		"win": "2.2074",
 		"mac": "2.2074",
-		"android": "2.2074",
-		"ios": "2.2074"
+		"ios": "2.2074",
+		"android": "2.2074"
 	},
 	"id": "raydeeux.zealousdateandtime",
 	"name": "ZealousDateAndTime",
-	"version": "v1.0.4",
+	"version": "v1.0.5",
 	"developer": "RayDeeUx",
 	"description": "Adds the time and date to the screen.",
 	"repository": "https://github.com/RayDeeUx/ZealousDateAndTime",

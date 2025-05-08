@@ -1,4 +1,6 @@
 # ZealousDateAndTime Changelog
+## v1.0.5
+- Fix unintended (and overlooked) behavior when disabling `Readable Mode (Stronger Blending)` while using the Aller/Helvetica font.
 ## v1.0.4
 - Experimental iOS support.
 ## v1.0.3
