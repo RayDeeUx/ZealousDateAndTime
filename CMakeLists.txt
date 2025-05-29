@@ -10,12 +10,18 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 project(ZealousDateAndTime VERSION 1.0.0)
 
-file(GLOB SOURCES
-        src/**.cpp
-        src/**.hpp
+# Set up the mod binary
+add_library(${PROJECT_NAME} SHARED
+    src/Manager.cpp
+    src/Manager.hpp
+    src/Utils.cpp
+    src/Utils.hpp
+    src/ZealousDateAndTimeLabel.hpp
+    src/ZealousDateAndTimeLabel.cpp
+    src/MenuLayer.cpp
+    src/main.cpp
+    # Add any extra C++ source files here
 )
-
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK! Please define GEODE_SDK environment variable to point to Geode")
