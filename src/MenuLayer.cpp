@@ -1,4 +1,5 @@
 #include <Geode/modify/MenuLayer.hpp>
+#include "ZealousDateAndTimeLabel.hpp"
 #include "Manager.hpp"
 #include "Utils.hpp"
 #include <ctime>
