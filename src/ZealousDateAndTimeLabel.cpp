@@ -18,7 +18,7 @@ bool ZealousDateAndTimeLabel::init(const char* content, const char* fontFile) {
 	return true;
 }
 
-static void ZealousDateAndTimeLabel::update(float dt) {
+void ZealousDateAndTimeLabel::update(float dt) {
 	ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
 	if (!zdatl) return;
 	if (!Utils::modEnabled()) return zdatl->setVisible(false);
