@@ -193,6 +193,7 @@ namespace Utils {
 		CCScene::get()->addChild(newLabel);
 		SceneManager::get()->keepAcrossScenes(newLabel);
 		newLabel->setVisible(true);
+		GameManager::get()->schedule(schedule_selector(ZealousDateAndTimeLabel::update));
 		if (Utils::getBool("logging")) log::info("ZDATL added");
 	}
 
@@ -200,6 +201,7 @@ namespace Utils {
 		auto zdatl = getZDATL();
 		if (!zdatl) return;
 		CCScene::get()->removeChildByID("zealous-date-and-time-label"_spr);
+		GameManager::get()->unschedule(schedule_selector(ZealousDateAndTimeLabel::update));
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
