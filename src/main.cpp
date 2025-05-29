@@ -5,6 +5,7 @@
 using namespace geode::prelude;
 
 $on_mod(Loaded) {
+	GameManager::get()->schedule(schedule_selector(ZealousDateAndTimeLabel::update));
 	listenForSettingChanges<bool>("enabled", [](bool isEnabled) {
 		ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
 		if (!isEnabled && zdatl) return Utils::removeZDATL();
