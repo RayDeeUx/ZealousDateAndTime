@@ -1,4 +1,5 @@
 #include "ZealousDateAndTimeLabel.hpp"
+#include "Utils.hpp"
 
 using namespace geode::prelude;
 
@@ -15,4 +16,11 @@ ZealousDateAndTimeLabel* ZealousDateAndTimeLabel::create(const char* content, co
 bool ZealousDateAndTimeLabel::init(const char* content, const char* fontFile) {
 	if (!CCLabelBMFont::initWithString(content, fontFile)) return false;
 	return true;
+}
+
+static void ZealousDateAndTimeLabel::update(float dt) {
+	ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
+	if (!zdatl) return;
+	if (!Utils::modEnabled()) return zdatl->setVisible(false);
+	Utils::handleZDATL();
 }
