@@ -193,7 +193,6 @@ namespace Utils {
 		CCScene::get()->addChild(newLabel);
 		SceneManager::get()->keepAcrossScenes(newLabel);
 		newLabel->setVisible(true);
-		newLabel->scheduleUpdate();
 		if (Utils::getBool("logging")) log::info("ZDATL added");
 	}
 
