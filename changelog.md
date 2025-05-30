@@ -1,4 +1,6 @@
 # ZealousDateAndTime Changelog
+## v1.1.0
+- Remove a controversial function hook, and shuffled a few functions around to adapt to those changes.
 ## v1.0.5
 - Fix unintended (and overlooked) behavior when disabling `Readable Mode (Stronger Blending)` while using the Aller/Helvetica font.
 ## v1.0.4
