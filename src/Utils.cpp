@@ -95,7 +95,7 @@ namespace Utils {
 
 		std::string timeZone = Utils::getUTCOffset(tm_local);
 		#endif
-		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), getUptime()) : "";
+		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), Utils::getUptime(timeNow)) : "";
 		return fmt::format("{}, {}, {}{}{:02}:{:02}{}{} {}{}",
 			dayOfWeek, dateMonth, tm_local.tm_year + 1900, separator,
 			hour, tm_local.tm_min, seconds, ampm, timeZone, uptime
