@@ -36,8 +36,8 @@ namespace Utils {
 		auto now = std::chrono::system_clock::now();
         auto timeNow = std::chrono::system_clock::to_time_t(now);
         std::tm* tm_local = fmt::localtime(timeNow);
-		std::string month = manager->months[now->tm_mon + 1];
-		int hour = now->tm_hour;
+		std::string month = manager->months[tm_local->tm_mon + 1];
+		int hour = tm_local->tm_hour;
 		std::string ampm = "";
 		if (Utils::getBool("twelveHour")) {
 			if (hour > 12) {
@@ -50,15 +50,15 @@ namespace Utils {
 		}
 		if (Utils::getBool("shortMonth") && month.length() > Utils::getInt("monthTruncation"))
 			month = fmt::format("{}", month.substr(0, Utils::getInt("monthTruncation")));
-		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : "";
+		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[tm_local->tm_wday] : "";
 		if (Utils::getBool("shortDayOfWeek") && dayOfWeek.length() > Utils::getInt("dOWTruncation"))
 			dayOfWeek = fmt::format("{}", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
 		std::string dateMonth = Utils::getBool("dayFirst") ?
-			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
-		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
+			fmt::format("{} {}", tm_local->tm_mday, month) : fmt::format("{} {}", month, tm_local->tm_mday);
+		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", tm_local->tm_sec % 60) : "";
 		std::string separator = Utils::getBool("splitDateAndTime") ? "\n" : " ";
 		#ifndef GEODE_IS_WINDOWS
-		std::string timeZone = Utils::getBool("useUTC") ? Utils::getUTCOffset() : now->tm_zone;
+		std::string timeZone = Utils::getBool("useUTC") ? Utils::getUTCOffset() : tm_local->tm_zone;
 		#else
 		/*
 		original approach: display UTC offset
@@ -97,8 +97,8 @@ namespace Utils {
 		#endif
 		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), getUptime(tinnyTim)) : "";
 		return fmt::format("{}, {}, {}{}{:02}:{:02}{}{} {}{}",
-			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
-			hour, now->tm_min, seconds, ampm, timeZone, uptime
+			dayOfWeek, dateMonth, tm_local->tm_year + 1900, separator,
+			hour, tm_local->tm_min, seconds, ampm, timeZone, uptime
 		);
 	}
 
