@@ -33,6 +33,7 @@ namespace Utils {
 	std::string getCurrentTime() {
 		if (!Utils::modEnabled()) return "";
 		Manager* manager = Manager::getSharedInstance();
+		auto now = std::chrono::system_clock::now();
         auto timeNow = std::chrono::system_clock::to_time_t(now);
         std::tm* tm_local = fmt::localtime(timeNow);
 		std::string month = manager->months[now->tm_mon + 1];
