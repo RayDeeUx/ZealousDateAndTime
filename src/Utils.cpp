@@ -1,5 +1,5 @@
 #include "Utils.hpp"
-#include <ctime>
+#include <fmt/chrono.h>
 
 #define SECONDS_PER_DAY 86400
 #define SECONDS_PER_HOUR 3600
@@ -33,8 +33,8 @@ namespace Utils {
 	std::string getCurrentTime() {
 		if (!Utils::modEnabled()) return "";
 		Manager* manager = Manager::getSharedInstance();
-		std::time_t tinnyTim = std::time(nullptr);
-		std::tm* now = std::localtime(&tinnyTim);
+        auto timeNow = std::chrono::system_clock::to_time_t(now);
+        std::tm* tm_local = fmt::localtime(timeNow);
 		std::string month = manager->months[now->tm_mon + 1];
 		int hour = now->tm_hour;
 		std::string ampm = "";
