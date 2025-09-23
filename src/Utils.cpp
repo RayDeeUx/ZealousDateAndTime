@@ -106,6 +106,12 @@ namespace Utils {
 		if (!Utils::modEnabled()) return "";
 		// code adapted from cvolton with heavily implied permission
 		// proof: https://discord.com/channels/911701438269386882/911702535373475870/1322321142819586099
+		std::time_t epoch = 0;
+		#ifdef GEODE_IS_WINDOWS
+		localtime_s(&timeInfo, &epoch);
+		#else
+		localtime_r(&epoch, &timeInfo);
+		#endif
 		if (timeInfo.tm_hour == 0 && timeInfo.tm_min == 0) return "UTC";
 		char sign = timeInfo.tm_hour >= 12 ? '-' : timeInfo.tm_hour > 0 ? '+' : ' ';
 		int hour = timeInfo.tm_hour >= 12 ? 24 - timeInfo.tm_hour : timeInfo.tm_hour;
