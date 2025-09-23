@@ -19,7 +19,7 @@ namespace Utils {
 	std::string getModVersion(Mod* mod);
 
 	std::string getCurrentTime();
-	std::string getUTCOffset();
+	std::string getUTCOffset(std::tm timeInfo);
 	std::string getUptime(std::time_t now);
 
 	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());

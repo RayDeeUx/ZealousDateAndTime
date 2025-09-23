@@ -93,7 +93,7 @@ namespace Utils {
 		(why can't MSVC just include a timezone abbv member variable like any other competent C implementation????)
 		*/
 
-		std::string timeZone = Utils::getUTCOffset();
+		std::string timeZone = Utils::getUTCOffset(tm_local);
 		#endif
 		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), getUptime()) : "";
 		return fmt::format("{}, {}, {}{}{:02}:{:02}{}{} {}{}",
