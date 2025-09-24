@@ -144,9 +144,12 @@ namespace Utils {
 	
 	void handleZDATL(ZealousDateAndTimeLabel* zdatl) {
 		if (!Utils::modEnabled()) {
-			if (zdatl) Utils::removeZDATL(zdatl);
-			return
+			if (zdatl) Utils::removeZDATL();
+			return;
 		}
+		const auto gjbgl = GJBaseGameLayer::get();
+		const auto lel = LevelEditorLayer::get();
+		const auto pl = PlayLayer::get();
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return removeZDATL();
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
@@ -173,7 +176,7 @@ namespace Utils {
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayer")) removeZDATL(zdatl);
+				if (getBool("hideInLevelEditorLayer")) Utils::removeZDATL();
 				else addZDATL();
 			}
 		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
