@@ -15,18 +15,18 @@ public:
 
 	bool calledAlready = false;
 
-	static std::array<std::string, 13> monthsFallback = {
+	const std::array<std::string, 13> monthsFallback = {
 		"Unknown",
 		"January", "February", "March", "April",
 		"May", "June", "July", "August",
 		"September", "October", "November", "December"
 	};
 
-	static std::array<std::string, 7> daysOfWeekFallback = {
+	const std::array<std::string, 7> daysOfWeekFallback = {
 		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 	};
 
-	static std::unordered_map<std::string, std::array<std::string, 7>> daysOfWeekMap = {
+	const std::unordered_map<std::string, std::array<std::string, 7>> daysOfWeekMap = {
 		{"English", {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}},
 		{"Spanish", {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"}},
 		{"French", {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"}},
@@ -47,7 +47,7 @@ public:
 		{"Korean (Revised Romanization)", {"il", "wol", "hwa", "su", "mog", "geum", "to"}}
 	};
 
-	static std::unordered_map<std::string, std::array<std::string, 13>> monthsMap = {
+	const std::unordered_map<std::string, std::array<std::string, 13>> monthsMap = {
 		{"English", {"Unknown", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}},
 		{"Spanish", {"Desconocido", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}},
 		{"French", {"Inconnu", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"}},
