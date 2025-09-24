@@ -1,5 +1,5 @@
 #include "Utils.hpp"
-#include <ctime>
+#include <fmt/chrono.h>
 
 #define SECONDS_PER_DAY 86400
 #define SECONDS_PER_HOUR 3600
@@ -33,10 +33,11 @@ namespace Utils {
 	std::string getCurrentTime() {
 		if (!Utils::modEnabled()) return "";
 		Manager* manager = Manager::getSharedInstance();
-		std::time_t tinnyTim = std::time(nullptr);
-		std::tm* now = std::localtime(&tinnyTim);
-		std::string month = manager->months[now->tm_mon + 1];
-		int hour = now->tm_hour;
+		auto now = std::chrono::system_clock::now();
+        auto timeNow = std::chrono::system_clock::to_time_t(now);
+        std::tm tm_local = fmt::localtime(timeNow);
+		std::string month = manager->months[tm_local.tm_mon + 1];
+		int hour = tm_local.tm_hour;
 		std::string ampm = "";
 		if (Utils::getBool("twelveHour")) {
 			if (hour > 12) {
@@ -49,15 +50,15 @@ namespace Utils {
 		}
 		if (Utils::getBool("shortMonth") && month.length() > Utils::getInt("monthTruncation"))
 			month = fmt::format("{}", month.substr(0, Utils::getInt("monthTruncation")));
-		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[now->tm_wday] : "";
+		std::string dayOfWeek = Utils::getBool("dayOfWeek") ? manager->daysOfWeek[tm_local.tm_wday] : "";
 		if (Utils::getBool("shortDayOfWeek") && dayOfWeek.length() > Utils::getInt("dOWTruncation"))
 			dayOfWeek = fmt::format("{}", dayOfWeek.substr(0, Utils::getInt("dOWTruncation")));
 		std::string dateMonth = Utils::getBool("dayFirst") ?
-			fmt::format("{} {}", now->tm_mday, month) : fmt::format("{} {}", month, now->tm_mday);
-		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", now->tm_sec % 60) : "";
+			fmt::format("{} {}", tm_local.tm_mday, month) : fmt::format("{} {}", month, tm_local.tm_mday);
+		std::string seconds = Utils::getBool("includeSeconds") ? fmt::format(":{:02}", tm_local.tm_sec % 60) : "";
 		std::string separator = Utils::getBool("splitDateAndTime") ? "\n" : " ";
 		#ifndef GEODE_IS_WINDOWS
-		std::string timeZone = Utils::getBool("useUTC") ? Utils::getUTCOffset() : now->tm_zone;
+		std::string timeZone = Utils::getBool("useUTC") ? Utils::getUTCOffset(tm_local) : tm_local.tm_zone;
 		#else
 		/*
 		original approach: display UTC offset
@@ -92,20 +93,19 @@ namespace Utils {
 		(why can't MSVC just include a timezone abbv member variable like any other competent C implementation????)
 		*/
 
-		std::string timeZone = Utils::getUTCOffset();
+		std::string timeZone = Utils::getUTCOffset(tm_local);
 		#endif
-		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), getUptime(tinnyTim)) : "";
+		std::string uptime = Utils::getBool("uptime") ? fmt::format("\n{}: {}", Utils::getString("uptimePrefix"), Utils::getUptime(timeNow)) : "";
 		return fmt::format("{}, {}, {}{}{:02}:{:02}{}{} {}{}",
-			dayOfWeek, dateMonth, now->tm_year + 1900, separator,
-			hour, now->tm_min, seconds, ampm, timeZone, uptime
+			dayOfWeek, dateMonth, tm_local.tm_year + 1900, separator,
+			hour, tm_local.tm_min, seconds, ampm, timeZone, uptime
 		);
 	}
 
-	std::string getUTCOffset() {
+	std::string getUTCOffset(std::tm timeInfo) {
 		if (!Utils::modEnabled()) return "";
 		// code adapted from cvolton with heavily implied permission
 		// proof: https://discord.com/channels/911701438269386882/911702535373475870/1322321142819586099
-		std::tm timeInfo;
 		std::time_t epoch = 0;
 		#ifdef GEODE_IS_WINDOWS
 		localtime_s(&timeInfo, &epoch);
