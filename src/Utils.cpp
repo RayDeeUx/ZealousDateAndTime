@@ -225,6 +225,7 @@ namespace Utils {
 		if (color == ccColor4B{0, 0, 0, 0}) return Utils::addChroma(label);
 		label->setColor({color.r, color.g, color.b});
 		label->setOpacity(color.a);
+		label->scheduleUpdate();
 	}
 
 	void setupMonthsAndDay(Manager* manager, std::string lang) {

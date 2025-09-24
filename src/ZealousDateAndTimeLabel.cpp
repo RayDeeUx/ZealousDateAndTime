@@ -15,7 +15,6 @@ ZealousDateAndTimeLabel* ZealousDateAndTimeLabel::create(const char* content, co
 
 bool ZealousDateAndTimeLabel::init(const char* content, const char* fontFile) {
 	if (!CCLabelBMFont::initWithString(content, fontFile)) return false;
-	this->scheduleUpdate();
 	return true;
 }
 
