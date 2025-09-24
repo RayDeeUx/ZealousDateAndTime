@@ -23,7 +23,7 @@ namespace Utils {
 	std::string getUptime(std::time_t now);
 
 	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
-	void handleZDATL();
+	void handleZDATL(ZealousDateAndTimeLabel* zdatl);
 	void addZDATL();
 	void removeZDATL();
 	void setupZDATL(ZealousDateAndTimeLabel* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());

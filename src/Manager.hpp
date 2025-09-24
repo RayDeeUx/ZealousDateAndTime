@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ZealousDateAndTimeLabel.hpp"
+
 // Manager.hpp structure by acaruso
 // reused with explicit permission and strong encouragement
 
@@ -13,18 +15,18 @@ public:
 
 	bool calledAlready = false;
 
-	std::array<std::string, 13> monthsFallback = {
+	static std::array<std::string, 13> monthsFallback = {
 		"Unknown",
 		"January", "February", "March", "April",
 		"May", "June", "July", "August",
 		"September", "October", "November", "December"
 	};
 
-	std::array<std::string, 7> daysOfWeekFallback = {
+	static std::array<std::string, 7> daysOfWeekFallback = {
 		"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 	};
 
-	std::unordered_map<std::string, std::array<std::string, 7>> daysOfWeekMap = {
+	static std::unordered_map<std::string, std::array<std::string, 7>> daysOfWeekMap = {
 		{"English", {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}},
 		{"Spanish", {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"}},
 		{"French", {"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"}},
@@ -45,7 +47,7 @@ public:
 		{"Korean (Revised Romanization)", {"il", "wol", "hwa", "su", "mog", "geum", "to"}}
 	};
 
-	std::unordered_map<std::string, std::array<std::string, 13>> monthsMap = {
+	static std::unordered_map<std::string, std::array<std::string, 13>> monthsMap = {
 		{"English", {"Unknown", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"}},
 		{"Spanish", {"Desconocido", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}},
 		{"French", {"Inconnu", "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"}},
@@ -70,6 +72,8 @@ public:
 	std::array<std::string, 13> months;
 
 	std::time_t originalTimestamp;
+
+	ZealousDateAndTimeLabel* zdatl = nullptr;
 
 	static Manager* getSharedInstance() {
 		if (!instance) {

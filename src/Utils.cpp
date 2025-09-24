@@ -139,15 +139,14 @@ namespace Utils {
 	}
 
 	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene) {
-		return static_cast<ZealousDateAndTimeLabel*>(scene->getChildByID("zealous-date-and-time-label"_spr));
+		return Manager::getSharedInstance()->zdatl;
 	}
 	
-	void handleZDATL() {
-		if (!Utils::modEnabled()) return removeZDATL();
-		const auto gjbgl = GJBaseGameLayer::get();
-		const auto lel = LevelEditorLayer::get();
-		const auto pl = PlayLayer::get();
-		ZealousDateAndTimeLabel* zdatl = getZDATL();
+	void handleZDATL(ZealousDateAndTimeLabel* zdatl) {
+		if (!Utils::modEnabled()) {
+			if (zdatl) Utils::removeZDATL(zdatl);
+			return
+		}
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return removeZDATL();
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
@@ -174,7 +173,7 @@ namespace Utils {
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayer")) removeZDATL();
+				if (getBool("hideInLevelEditorLayer")) removeZDATL(zdatl);
 				else addZDATL();
 			}
 		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
@@ -193,14 +192,14 @@ namespace Utils {
 		CCScene::get()->addChild(newLabel);
 		SceneManager::get()->keepAcrossScenes(newLabel);
 		newLabel->setVisible(true);
+		Manager::getSharedInstance()->zdatl = newLabel;
 		if (Utils::getBool("logging")) log::info("ZDATL added");
 	}
 
-	void removeZDATL() {
-		auto zdatl = getZDATL();
-		if (!zdatl) return;
+	void removeZDATL(ZealousDateAndTimeLabel* zdatl) {
 		GameManager::get()->unschedule(static_cast<SEL_SCHEDULE>(&ZealousDateAndTimeLabel::updateWrapper));
-		CCScene::get()->removeChildByID("zealous-date-and-time-label"_spr);
+		if (!zdatl) return;
+		zdatl->removeMeAndCleanup();
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
