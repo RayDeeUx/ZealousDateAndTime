@@ -201,8 +201,8 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = Utils::getZDATL();
 		if (!zdatl) return;
-		GameManager::get()->unschedule(static_cast<SEL_SCHEDULE>(&ZealousDateAndTimeLabel::updateWrapper));
 		zdatl->removeMeAndCleanup();
+		Manager::getSharedInstance()->zdatl = nullptr;
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
