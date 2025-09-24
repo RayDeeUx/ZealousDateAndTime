@@ -1,3 +1,4 @@
+#include "Manager.hpp"
 #include "Utils.hpp"
 #include <fmt/chrono.h>
 
@@ -142,14 +143,12 @@ namespace Utils {
 		return Manager::getSharedInstance()->zdatl;
 	}
 	
-	void handleZDATL(ZealousDateAndTimeLabel* zdatl) {
-		if (!Utils::modEnabled()) {
-			if (zdatl) Utils::removeZDATL();
-			return;
-		}
+	void handleZDATL() {
+		if (!Utils::modEnabled()) return Utils::removeZDATL();
 		const auto gjbgl = GJBaseGameLayer::get();
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
+		auto zdatl = Utils::getZDATL();
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return removeZDATL();
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
@@ -187,7 +186,7 @@ namespace Utils {
 	}
 
 	void addZDATL() {
-		auto zdatl = getZDATL();
+		auto zdatl = Utils::getZDATL();
 		if (zdatl) return zdatl->setVisible(true);
 		auto newLabel = ZealousDateAndTimeLabel::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
@@ -199,9 +198,10 @@ namespace Utils {
 		if (Utils::getBool("logging")) log::info("ZDATL added");
 	}
 
-	void removeZDATL(ZealousDateAndTimeLabel* zdatl) {
-		GameManager::get()->unschedule(static_cast<SEL_SCHEDULE>(&ZealousDateAndTimeLabel::updateWrapper));
+	void removeZDATL() {
+		auto zdatl = Utils::getZDATL();
 		if (!zdatl) return;
+		GameManager::get()->unschedule(static_cast<SEL_SCHEDULE>(&ZealousDateAndTimeLabel::updateWrapper));
 		zdatl->removeMeAndCleanup();
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
