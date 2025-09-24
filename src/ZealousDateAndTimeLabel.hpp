@@ -6,4 +6,5 @@ protected:
 
 public:
 	static ZealousDateAndTimeLabel* create(const char*, const char*);
+	void update(float dt);
 };

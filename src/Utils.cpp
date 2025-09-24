@@ -199,6 +199,7 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = getZDATL();
 		if (!zdatl) return;
+		zdatl->unscheduleUpdate();
 		CCScene::get()->removeChildByID("zealous-date-and-time-label"_spr);
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}

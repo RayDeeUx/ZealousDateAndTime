@@ -18,7 +18,6 @@ add_library(${PROJECT_NAME} SHARED
     src/Utils.hpp
     src/ZealousDateAndTimeLabel.hpp
     src/ZealousDateAndTimeLabel.cpp
-    src/CCScheduler.cpp
     src/MenuLayer.cpp
     src/main.cpp
     # Add any extra C++ source files here
