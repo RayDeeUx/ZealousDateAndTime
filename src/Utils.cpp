@@ -199,7 +199,7 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = getZDATL();
 		if (!zdatl) return;
-		GameManager::get()->unschedule(reinterpret_cast<SEL_SCHEDULE>(ZealousDateAndTimeLabel::updateWrapper));
+		GameManager::get()->unschedule(reinterpret_cast<SEL_SCHEDULE>(&ZealousDateAndTimeLabel::updateWrapper));
 		CCScene::get()->removeChildByID("zealous-date-and-time-label"_spr);
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
@@ -225,7 +225,7 @@ namespace Utils {
 		if (color == ccColor4B{0, 0, 0, 0}) return Utils::addChroma(label);
 		label->setColor({color.r, color.g, color.b});
 		label->setOpacity(color.a);
-		GameManager::get()->schedule(reinterpret_cast<SEL_SCHEDULE>(ZealousDateAndTimeLabel::updateWrapper));
+		GameManager::get()->schedule(reinterpret_cast<SEL_SCHEDULE>(&ZealousDateAndTimeLabel::updateWrapper));
 	}
 
 	void setupMonthsAndDay(Manager* manager, std::string lang) {
