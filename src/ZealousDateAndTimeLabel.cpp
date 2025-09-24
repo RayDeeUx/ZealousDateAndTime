@@ -23,5 +23,5 @@ void ZealousDateAndTimeLabel::update(float dt) {
 	ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
 	if (!zdatl) return;
 	if (!Utils::modEnabled()) return zdatl->setVisible(false);
-	Utils::handleZDATL(zdatl);
+	Utils::handleZDATL();
 }
