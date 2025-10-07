@@ -1,5 +1,6 @@
 # ZealousDateAndTime Changelog
 ## v1.1.1
+- Experimental iOS JIT-less support.
 - Refactor a few things to prepare for better mod compatibility.
 ## v1.1.0
 - Remove a controversial function hook, and shuffled a few functions around to adapt to those changes.
