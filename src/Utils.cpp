@@ -175,7 +175,7 @@ namespace Utils {
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayer")) Utils::removeZDATL();
+				if (getBool("hideInLevelEditorLayer")) return Utils::removeZDATL();
 				else addZDATL();
 			}
 		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));

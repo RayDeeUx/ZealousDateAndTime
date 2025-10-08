@@ -1,4 +1,6 @@
 # ZealousDateAndTime Changelog
+## v1.1.2
+- Refactor some crash-inducing code.
 ## v1.1.1
 - Experimental iOS JIT-less support.
 - Refactor a few things to prepare for better mod compatibility.
