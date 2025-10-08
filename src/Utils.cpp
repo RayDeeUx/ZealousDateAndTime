@@ -201,6 +201,7 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = Utils::getZDATL();
 		if (!zdatl) return;
+		SceneManager::get()->forget(zdatl);
 		zdatl->removeMeAndCleanup();
 		Manager::getSharedInstance()->zdatl = nullptr;
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
