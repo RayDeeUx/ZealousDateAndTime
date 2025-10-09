@@ -150,7 +150,7 @@ namespace Utils {
 		const auto pl = PlayLayer::get();
 		auto zdatl = Utils::getZDATL();
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
-		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return Utils::removeZDATL();
+		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->setVisible(false);
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
 			addZDATL();
 			zdatl = getZDATL();
@@ -175,7 +175,7 @@ namespace Utils {
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayer")) return Utils::removeZDATL();
+				if (getBool("hideInLevelEditorLayer")) return zdatl->setVisible(false);
 				else addZDATL();
 			}
 		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
