@@ -192,7 +192,7 @@ namespace Utils {
 		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
 		setupZDATL(newLabel);
 		CCScene::get()->addChild(newLabel);
-		geode::OverlayManager::get()->keepAcrossScenes(newLabel);
+		geode::OverlayManager::get()->addChild(newLabel);
 		newLabel->setVisible(true);
 		Manager::getSharedInstance()->zdatl = newLabel;
 		if (Utils::getBool("logging")) log::info("ZDATL added");
