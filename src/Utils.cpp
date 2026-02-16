@@ -192,7 +192,7 @@ namespace Utils {
 		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
 		setupZDATL(newLabel);
 		CCScene::get()->addChild(newLabel);
-		SceneManager::get()->keepAcrossScenes(newLabel);
+		geode::OverlayManager::get()->keepAcrossScenes(newLabel);
 		newLabel->setVisible(true);
 		Manager::getSharedInstance()->zdatl = newLabel;
 		if (Utils::getBool("logging")) log::info("ZDATL added");
@@ -201,7 +201,6 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = Utils::getZDATL();
 		if (!zdatl) return;
-		SceneManager::get()->forget(zdatl);
 		zdatl->removeMeAndCleanup();
 		Manager::getSharedInstance()->zdatl = nullptr;
 		if (Utils::getBool("logging")) log::info("ZDATL removed");

@@ -1,4 +1,6 @@
 # ZealousDateAndTime Changelog
+## v1.1.4
+- Port to GD 2.2081.
 ## v1.1.3 and v1.1.2
 - Refactor some crash-inducing code.
 ## v1.1.1
