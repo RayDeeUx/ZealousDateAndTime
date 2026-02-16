@@ -36,7 +36,7 @@ namespace Utils {
 		Manager* manager = Manager::getSharedInstance();
 		auto now = std::chrono::system_clock::now();
         auto timeNow = std::chrono::system_clock::to_time_t(now);
-        std::tm tm_local = fmt::localtime(timeNow);
+        std::tm tm_local = geode::localtime(timeNow);
 		std::string month = manager->months[tm_local.tm_mon + 1];
 		int hour = tm_local.tm_hour;
 		std::string ampm = "";
