@@ -7,7 +7,6 @@ using namespace geode::prelude;
 ZealousDateAndTimeLabel* ZealousDateAndTimeLabel::create(const char* content, const char* fontFile) {
 	auto* ret = new ZealousDateAndTimeLabel();
 	if (ret && ret->initWithString(content, fontFile)) {
-		ret->m_pComponentContainer = new CCComponentContainer(ret);
 		ret->autorelease();
 		return ret;
 	}
