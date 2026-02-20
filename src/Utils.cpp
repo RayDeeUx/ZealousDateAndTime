@@ -149,8 +149,8 @@ namespace Utils {
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
 		auto zdatl = Utils::getZDATL();
-		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
-		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->setVisible(false);
+		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->getParent()->setVisible(false);
+		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->getParent()->setVisible(false);
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
 			Utils::addZDATL();
 			zdatl = Utils::getZDATL();
@@ -159,35 +159,35 @@ namespace Utils {
 			if (pl) {
 				std::string playLayerVisibility = getString("visibilityInPlayLayer");
 				if (playLayerVisibility.starts_with("Always ")) {
-					if (playLayerVisibility == "Always Visible") zdatl->setVisible(true);
-					else if (playLayerVisibility == "Always Hidden") zdatl->setVisible(false);
+					if (playLayerVisibility == "Always Visible") zdatl->getParent()->setVisible(true);
+					else if (playLayerVisibility == "Always Hidden") zdatl->getParent()->setVisible(false);
 				} else if (playLayerVisibility.starts_with("Only ") && playLayerVisibility.ends_with(" When Dead")) {
 					if (auto player = pl->m_player1) {
 						bool onlyShowWhenDead = playLayerVisibility == "Only Show When Dead";
 						bool onlyHideWhenDead = playLayerVisibility == "Only Hide When Dead";
 						if (player->m_isDead) {
-							if (onlyShowWhenDead) zdatl->setVisible(true);
-							else if (onlyHideWhenDead) zdatl->setVisible(false);
+							if (onlyShowWhenDead) zdatl->getParent()->setVisible(true);
+							else if (onlyHideWhenDead) zdatl->getParent()->setVisible(false);
 						} else {
-							if (onlyShowWhenDead) zdatl->setVisible(false);
-							else if (onlyHideWhenDead) zdatl->setVisible(true);
+							if (onlyShowWhenDead) zdatl->getParent()->setVisible(false);
+							else if (onlyHideWhenDead) zdatl->getParent()->setVisible(true);
 						}
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayer")) return zdatl->setVisible(false);
+				if (getBool("hideInLevelEditorLayer")) return zdatl->getParent()->setVisible(false);
 				else Utils::addZDATL();
 			}
-		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
-		if (zdatl && zdatl->m_actualLabel) {
-			if (!Utils::isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->m_actualLabel->setString(getCurrentTime().c_str());
-			else zdatl->m_actualLabel->setString(getCurrentTime().c_str(), false);
+		} else if (zdatl) zdatl->getParent()->setVisible(!getBool("hideEverywhereElse"));
+		if (zdatl) {
+			if (!Utils::isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->setString(getCurrentTime().c_str());
+			else zdatl->setString(getCurrentTime().c_str(), false);
 		}
 	}
 
 	void addZDATL() {
 		auto zdatl = Utils::getZDATL();
-		if (zdatl) return zdatl->setVisible(true);
+		if (zdatl) return zdatl->getParent()->setVisible(true);
 		auto newLabel = ZealousDateAndTimeLabel::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		if (!newLabel || !newLabel->m_actualLabel) return log::info("ZDATL addition operation failed, node was not created properly");
 		setupZDATL(newLabel->m_actualLabel);
