@@ -236,7 +236,7 @@ namespace Utils {
 			manager->monthsMap.at(lang) : manager->monthsFallback;
 	}
 
-	void addChroma(ZealousDateAndTimeLabel* label) {
+	void addChroma(CCLabelBMFont* label) {
 		label->setColor({255, 255, 255});
 		label->setOpacity(255);
 		CCActionInterval* sequence = CCSequence::create(
