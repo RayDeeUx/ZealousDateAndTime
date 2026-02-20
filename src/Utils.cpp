@@ -148,12 +148,12 @@ namespace Utils {
 		const auto gjbgl = GJBaseGameLayer::get();
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
-		auto zdatl = Utils::getZDATL()->getParent();
+		auto zdatl = Utils::getZDATL();
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->setVisible(false);
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
 			Utils::addZDATL();
-			zdatl = Utils::getZDATL()->getParent();
+			zdatl = Utils::getZDATL();
 		}
 		if (gjbgl && zdatl) {
 			if (pl) {
