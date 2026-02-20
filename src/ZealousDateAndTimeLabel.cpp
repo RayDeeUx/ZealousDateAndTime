@@ -19,6 +19,7 @@ bool ZealousDateAndTimeLabel::init(const char* content, const char* fontFile) {
 	this->setContentSize({0, 0});
 	this->m_actualLabel = CCLabelBMFont::create(content, fontFile);
 	this->addChild(this->m_actualLabel);
+	this->setID("zealous-date-and-time-node-container"_spr);
 	return true;
 }
 
