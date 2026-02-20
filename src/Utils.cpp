@@ -139,7 +139,8 @@ namespace Utils {
 		return fmt::format("{}{}{}{}", daysString, hoursString, minutesString, secondsString);
 	}
 
-	CCLabelBMFont* getZDATL(cocos2d::CCScene* scene) {
+	CCLabelBMFont* getZDATL() {
+		if (!Manager::getSharedInstance()->zdatl) return nullptr;
 		return Manager::getSharedInstance()->zdatl->m_actualLabel;
 	}
 	

@@ -22,7 +22,7 @@ namespace Utils {
 	std::string getUTCOffset(std::tm timeInfo);
 	std::string getUptime(std::time_t now);
 
-	CCLabelBMFont* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
+	CCLabelBMFont* getZDATL();
 	void handleZDATL();
 	void addZDATL();
 	void removeZDATL();
