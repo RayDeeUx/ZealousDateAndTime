@@ -36,7 +36,7 @@ namespace Utils {
 		Manager* manager = Manager::getSharedInstance();
 		auto now = std::chrono::system_clock::now();
         auto timeNow = std::chrono::system_clock::to_time_t(now);
-        std::tm tm_local = geode::localtime(timeNow);
+        std::tm tm_local = fmt::localtime(timeNow);
 		std::string month = manager->months[tm_local.tm_mon + 1];
 		int hour = tm_local.tm_hour;
 		std::string ampm = "";
@@ -191,7 +191,9 @@ namespace Utils {
 		auto newLabel = ZealousDateAndTimeLabel::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
 		if (!newLabel || !newLabel->m_actualLabel) return log::info("ZDATL addition operation failed, node was not created properly");
 		setupZDATL(newLabel->m_actualLabel);
-		geode::OverlayManager::get()->addChild(newLabel);
+		// geode::OverlayManager::get()->addChild(newLabel);
+		CCScene::get()->addChild(newLabel);
+		SceneManager::get()->keepAcrossScenes(newLabel);
 		newLabel->setVisible(true);
 		Manager::getSharedInstance()->zdatl = newLabel;
 		if (Utils::getBool("logging")) log::info("ZDATL added");
@@ -200,6 +202,7 @@ namespace Utils {
 	void removeZDATL() {
 		auto zdatl = Utils::getZDATL();
 		if (!zdatl || !zdatl->getParent()) return;
+		SceneManager::get()->forget(zdatl);
 		zdatl->getParent()->removeMeAndCleanup();
 		Manager::getSharedInstance()->zdatl = nullptr;
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
