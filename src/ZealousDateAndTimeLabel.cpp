@@ -17,7 +17,6 @@ ZealousDateAndTimeLabel* ZealousDateAndTimeLabel::create(const char* content, co
 bool ZealousDateAndTimeLabel::init(const char* content, const char* fontFile) {
 	if (!CCNode::init()) return false;
 	this->setContentSize({0, 0});
-	this->setPosition(CCDirector::get()->getWinSize() / -2.f);
 	this->m_actualLabel = CCLabelBMFont::create(content, fontFile);
 	this->addChild(this->m_actualLabel);
 	return true;
