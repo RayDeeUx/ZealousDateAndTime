@@ -5,23 +5,27 @@
 using namespace geode::prelude;
 
 ZealousDateAndTimeLabel* ZealousDateAndTimeLabel::create(const char* content, const char* fontFile) {
-	auto *ret = new ZealousDateAndTimeLabel();
+	auto* ret = new ZealousDateAndTimeLabel();
 	if (ret && ret->init(content, fontFile)) {
 		ret->autorelease();
 		return ret;
 	}
-	CC_SAFE_DELETE(ret);
+	delete ret;
 	return nullptr;
 }
 
 bool ZealousDateAndTimeLabel::init(const char* content, const char* fontFile) {
-	if (!CCLabelBMFont::initWithString(content, fontFile)) return false;
+	if (!CCNode::init()) return false;
+	this->setContentSize({0, 0});
+	this->m_actualLabel = CCLabelBMFont::create(content, fontFile);
+	this->addChild(this->m_actualLabel);
+	this->setID("zealous-date-and-time-node-container"_spr);
 	return true;
 }
 
 void ZealousDateAndTimeLabel::update(float dt) {
-	ZealousDateAndTimeLabel* zdatl = Utils::getZDATL();
-	if (!zdatl) return;
-	if (!Utils::modEnabled()) return zdatl->setVisible(false);
+	CCLabelBMFont* zdatl = Utils::getZDATL();
+	if (!zdatl || !zdatl->getParent()) return;
+	if (!Utils::modEnabled()) return zdatl->getParent()->setVisible(false);
 	Utils::handleZDATL();
 }

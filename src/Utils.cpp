@@ -139,8 +139,9 @@ namespace Utils {
 		return fmt::format("{}{}{}{}", daysString, hoursString, minutesString, secondsString);
 	}
 
-	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene) {
-		return Manager::getSharedInstance()->zdatl;
+	CCLabelBMFont* getZDATL() {
+		if (!Manager::getSharedInstance()->zdatl) return nullptr;
+		return Manager::getSharedInstance()->zdatl->m_actualLabel;
 	}
 	
 	void handleZDATL() {
@@ -149,49 +150,48 @@ namespace Utils {
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
 		auto zdatl = Utils::getZDATL();
-		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
-		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->setVisible(false);
+		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->getParent()->setVisible(false);
+		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->getParent()->setVisible(false);
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
-			addZDATL();
-			zdatl = getZDATL();
+			Utils::addZDATL();
+			zdatl = Utils::getZDATL();
 		}
 		if (gjbgl && zdatl) {
 			if (pl) {
 				std::string playLayerVisibility = getString("visibilityInPlayLayer");
 				if (playLayerVisibility.starts_with("Always ")) {
-					if (playLayerVisibility == "Always Visible") zdatl->setVisible(true);
-					else if (playLayerVisibility == "Always Hidden") zdatl->setVisible(false);
+					if (playLayerVisibility == "Always Visible") zdatl->getParent()->setVisible(true);
+					else if (playLayerVisibility == "Always Hidden") zdatl->getParent()->setVisible(false);
 				} else if (playLayerVisibility.starts_with("Only ") && playLayerVisibility.ends_with(" When Dead")) {
 					if (auto player = pl->m_player1) {
 						bool onlyShowWhenDead = playLayerVisibility == "Only Show When Dead";
 						bool onlyHideWhenDead = playLayerVisibility == "Only Hide When Dead";
 						if (player->m_isDead) {
-							if (onlyShowWhenDead) zdatl->setVisible(true);
-							else if (onlyHideWhenDead) zdatl->setVisible(false);
+							if (onlyShowWhenDead) zdatl->getParent()->setVisible(true);
+							else if (onlyHideWhenDead) zdatl->getParent()->setVisible(false);
 						} else {
-							if (onlyShowWhenDead) zdatl->setVisible(false);
-							else if (onlyHideWhenDead) zdatl->setVisible(true);
+							if (onlyShowWhenDead) zdatl->getParent()->setVisible(false);
+							else if (onlyHideWhenDead) zdatl->getParent()->setVisible(true);
 						}
 					}
 				}
 			} else if (lel) {
-				if (getBool("hideInLevelEditorLayer")) return zdatl->setVisible(false);
-				else addZDATL();
+				if (getBool("hideInLevelEditorLayer")) return zdatl->getParent()->setVisible(false);
+				else Utils::addZDATL();
 			}
-		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
+		} else if (zdatl) zdatl->getParent()->setVisible(!getBool("hideEverywhereElse"));
 		if (zdatl) {
-			if (!isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->setString(getCurrentTime().c_str());
+			if (!Utils::isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->setString(getCurrentTime().c_str());
 			else zdatl->setString(getCurrentTime().c_str(), false);
 		}
 	}
 
 	void addZDATL() {
 		auto zdatl = Utils::getZDATL();
-		if (zdatl) return zdatl->setVisible(true);
+		if (zdatl) return zdatl->getParent()->setVisible(true);
 		auto newLabel = ZealousDateAndTimeLabel::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
-		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
-		setupZDATL(newLabel);
-		CCScene::get()->addChild(newLabel);
+		if (!newLabel || !newLabel->m_actualLabel) return log::info("ZDATL addition operation failed, node was not created properly");
+		setupZDATL(newLabel->m_actualLabel);
 		geode::OverlayManager::get()->addChild(newLabel);
 		newLabel->setVisible(true);
 		Manager::getSharedInstance()->zdatl = newLabel;
@@ -200,13 +200,13 @@ namespace Utils {
 
 	void removeZDATL() {
 		auto zdatl = Utils::getZDATL();
-		if (!zdatl) return;
-		zdatl->removeMeAndCleanup();
+		if (!zdatl || !zdatl->getParent()) return;
+		zdatl->getParent()->removeMeAndCleanup();
 		Manager::getSharedInstance()->zdatl = nullptr;
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
-	void setupZDATL(ZealousDateAndTimeLabel* label, CCSize win) {
+	void setupZDATL(CCLabelBMFont* label, CCSize win) {
 		Utils::setupMonthsAndDay();
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scale"));
@@ -237,7 +237,7 @@ namespace Utils {
 			manager->monthsMap.at(lang) : manager->monthsFallback;
 	}
 
-	void addChroma(ZealousDateAndTimeLabel* label) {
+	void addChroma(CCLabelBMFont* label) {
 		label->setColor({255, 255, 255});
 		label->setOpacity(255);
 		CCActionInterval* sequence = CCSequence::create(

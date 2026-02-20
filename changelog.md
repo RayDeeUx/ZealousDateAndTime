@@ -1,4 +1,7 @@
 # ZealousDateAndTime Changelog
+## v1.1.5
+- Fix a pretty egregious crash that prevented this mod from working properly.
+  - Did I ever mention how wonderful it is to be using a decade-old game engine?
 ## v1.1.4
 - Port to GD 2.2081.
 ## v1.1.3 and v1.1.2

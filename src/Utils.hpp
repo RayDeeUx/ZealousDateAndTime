@@ -22,12 +22,12 @@ namespace Utils {
 	std::string getUTCOffset(std::tm timeInfo);
 	std::string getUptime(std::time_t now);
 
-	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene = CCDirector::get()->getRunningScene());
+	CCLabelBMFont* getZDATL();
 	void handleZDATL();
 	void addZDATL();
 	void removeZDATL();
-	void setupZDATL(ZealousDateAndTimeLabel* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());
-	void addChroma(ZealousDateAndTimeLabel* label = Utils::getZDATL());
+	void setupZDATL(CCLabelBMFont* zdatl, cocos2d::CCSize win = CCDirector::get()->getWinSize());
+	void addChroma(CCLabelBMFont* label = Utils::getZDATL());
 	void setupMonthsAndDay(Manager* manager = Manager::getSharedInstance(), std::string lang = Utils::getString("language"));
 	std::string chooseFontFile(int64_t font);
 }
