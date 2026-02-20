@@ -139,8 +139,8 @@ namespace Utils {
 		return fmt::format("{}{}{}{}", daysString, hoursString, minutesString, secondsString);
 	}
 
-	ZealousDateAndTimeLabel* getZDATL(cocos2d::CCScene* scene) {
-		return Manager::getSharedInstance()->zdatl;
+	CCLabelBMFont* getZDATL(cocos2d::CCScene* scene) {
+		return Manager::getSharedInstance()->zdatl->m_actualLabel;
 	}
 	
 	void handleZDATL() {
@@ -148,12 +148,12 @@ namespace Utils {
 		const auto gjbgl = GJBaseGameLayer::get();
 		const auto lel = LevelEditorLayer::get();
 		const auto pl = PlayLayer::get();
-		auto zdatl = Utils::getZDATL();
+		auto zdatl = Utils::getZDATL()->getParent();
 		if (zdatl && getBool("hideEverywhereElse") && !pl && !lel) zdatl->setVisible(false);
 		if (zdatl && getBool("hideInLevelEditorLayer") && lel) return zdatl->setVisible(false);
 		if (!zdatl && getBool("hideInLevelEditorLayer") && !lel) {
-			addZDATL();
-			zdatl = getZDATL();
+			Utils::addZDATL();
+			zdatl = Utils::getZDATL()->getParent();
 		}
 		if (gjbgl && zdatl) {
 			if (pl) {
@@ -176,12 +176,12 @@ namespace Utils {
 				}
 			} else if (lel) {
 				if (getBool("hideInLevelEditorLayer")) return zdatl->setVisible(false);
-				else addZDATL();
+				else Utils::addZDATL();
 			}
 		} else if (zdatl) zdatl->setVisible(!getBool("hideEverywhereElse"));
-		if (zdatl) {
-			if (!isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->setString(getCurrentTime().c_str());
-			else zdatl->setString(getCurrentTime().c_str(), false);
+		if (zdatl && zdatl->m_actualLabel) {
+			if (!Utils::isModLoaded("ziegenhainy.dyslexia-simulator")) zdatl->m_actualLabel->setString(getCurrentTime().c_str());
+			else zdatl->m_actualLabel->setString(getCurrentTime().c_str(), false);
 		}
 	}
 
@@ -189,9 +189,8 @@ namespace Utils {
 		auto zdatl = Utils::getZDATL();
 		if (zdatl) return zdatl->setVisible(true);
 		auto newLabel = ZealousDateAndTimeLabel::create(Utils::getCurrentTime().c_str(), Utils::chooseFontFile(Utils::getInt("font")).c_str());
-		if (!newLabel) return log::info("ZDATL addition operation failed, node was not created properly");
-		setupZDATL(newLabel);
-		CCScene::get()->addChild(newLabel);
+		if (!newLabel || !newLabel->m_actualLabel) return log::info("ZDATL addition operation failed, node was not created properly");
+		setupZDATL(newLabel->m_actualLabel);
 		geode::OverlayManager::get()->addChild(newLabel);
 		newLabel->setVisible(true);
 		Manager::getSharedInstance()->zdatl = newLabel;
@@ -200,13 +199,13 @@ namespace Utils {
 
 	void removeZDATL() {
 		auto zdatl = Utils::getZDATL();
-		if (!zdatl) return;
-		zdatl->removeMeAndCleanup();
+		if (!zdatl || !zdatl->getParent()) return;
+		zdatl->getParent()->removeMeAndCleanup();
 		Manager::getSharedInstance()->zdatl = nullptr;
 		if (Utils::getBool("logging")) log::info("ZDATL removed");
 	}
 
-	void setupZDATL(ZealousDateAndTimeLabel* label, CCSize win) {
+	void setupZDATL(CCLabelBMFont* label, CCSize win) {
 		Utils::setupMonthsAndDay();
 		label->setID("zealous-date-and-time-label"_spr);
 		label->setScale(Utils::getDouble("scale"));
